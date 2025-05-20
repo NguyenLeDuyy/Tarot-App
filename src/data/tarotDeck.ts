@@ -6,6 +6,7 @@ export interface TarotCard {
     reversedMeaning: string; // Nghĩa ngược
     keywordsUpright?: string[]; // Từ khóa khi lá bài xuôi (tùy chọn)
     keywordsReversed?: string[]; // Từ khóa khi lá bài ngược (tùy chọn)
+    isReversed?: boolean; // <<<< ADD THIS LINE
     // Thêm các thuộc tính khác sau này như: suit, number, astrological_sign, element, etc.
 }
 

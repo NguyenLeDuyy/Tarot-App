@@ -32,6 +32,22 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+const readingHistorySchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    question: { type: String },
+    spreadName: { type: String, required: true },
+    drawnCards: [{
+        name: String,
+        isReversed: Boolean,
+        id: String
+    }],
+    spreadLayout: [String],
+    interpretation: { type: String },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const ReadingHistory = mongoose.model('ReadingHistory', readingHistorySchema);
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -233,6 +249,54 @@ app.post('/api/tarot/interpret', async (req, res) => {
             return res.status(401).json({ message: "Lỗi xác thực với dịch vụ Gemini. API key không hợp lệ. Kiểm tra lại API key." });
         }
         res.status(500).json({ message: "Lỗi máy chủ nội bộ khi xử lý yêu cầu luận giải với Gemini." });
+    }
+});
+
+// Save reading to history
+app.post('/api/tarot/save-reading', async (req, res) => {
+    const { userId, question, drawnCards, spreadName, spreadLayout, interpretation } = req.body;
+
+    try {
+        const newReading = new ReadingHistory({
+            userId,
+            question,
+            drawnCards,
+            spreadName,
+            spreadLayout,
+            interpretation
+        });
+
+        await newReading.save();
+        res.status(201).json({ message: "Lưu lịch sử thành công", readingId: newReading._id });
+    } catch (error) {
+        console.error("Lỗi lưu lịch sử:", error);
+        res.status(500).json({ message: "Lỗi khi lưu lịch sử bói" });
+    }
+});
+
+// Get user reading history
+app.get('/api/tarot/reading-history/:userId', async (req, res) => {
+    try {
+        const readings = await ReadingHistory.find({ userId: req.params.userId })
+            .sort({ createdAt: -1 }) // Newest first
+            .limit(20); // Limit to 20 most recent readings
+
+        res.json(readings);
+    } catch (error) {
+        console.error("Lỗi lấy lịch sử:", error);
+        res.status(500).json({ message: "Lỗi khi lấy lịch sử bói" });
+    }
+});
+
+// Get single reading detail
+app.get('/api/tarot/reading/:readingId', async (req, res) => {
+    try {
+        const reading = await ReadingHistory.findById(req.params.readingId);
+        if (!reading) return res.status(404).json({ message: "Không tìm thấy lần bói này" });
+
+        res.json(reading);
+    } catch (error) {
+        res.status(500).json({ message: "Lỗi khi lấy chi tiết lần bói" });
     }
 });
 

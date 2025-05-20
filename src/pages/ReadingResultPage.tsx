@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import type { TarotCard } from '../data/tarotDeck';
 import TarotCardDisplay from '../components/TarotCardDisplay';
+import { useAuth } from '../contexts/AuthContext';
 
 // Interface này nên khớp với interface DisplayableDrawnCard từ TarotReadingPage.tsx
 // hoặc bạn có thể import nó nếu đã export từ đó.
@@ -22,6 +23,8 @@ const ReadingResultPage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const state = location.state as ReadingResultLocationState | null;
+    const [saveStatus, setSaveStatus] = useState<string>('');
+    const { user } = useAuth();
 
     if (!state || !state.drawnCards || state.drawnCards.length === 0) {
         // Nếu không có state hoặc không có lá bài, chuyển hướng về trang chọn spread
@@ -42,6 +45,42 @@ const ReadingResultPage: React.FC = () => {
 
     const { question, drawnCards, spreadName, spreadLayout, interpretation } = state;
 
+    const saveReading = async () => {
+        if (!user) {
+            // Prompt user to login
+            setSaveStatus('Vui lòng đăng nhập để lưu kết quả');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/tarot/save-reading', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user.id,
+                    question,
+                    drawnCards: drawnCards.map(card => ({
+                        name: card.name,
+                        isReversed: card.isReversed,
+                        id: card.id
+                    })),
+                    spreadName,
+                    spreadLayout,
+                    interpretation
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setSaveStatus('Đã lưu thành công vào lịch sử');
+            } else {
+                setSaveStatus(`Lỗi: ${data.message}`);
+            }
+        } catch (error) {
+            setSaveStatus('Không thể kết nối đến máy chủ');
+        }
+    };
+
     return (
         <div className="py-10 sm:py-16 px-4 bg-gradient-to-br from-[#110C21] via-[#1A112C] to-[#24143D] min-h-[calc(100vh-150px)] text-gray-200">
             <div className="container mx-auto">
@@ -54,7 +93,7 @@ const ReadingResultPage: React.FC = () => {
 
                 {/* Câu hỏi của người dùng */}
                 {question && (
-                    <div className="mb-8 p-6 bg-slate-800/70 backdrop-blur-md rounded-xl shadow-lg border border-purple-700/30">
+                    <div className="mb-8 p-6 bg-slate-800/70 backdrop-blur-md rounded-xl shadow-lg border border-purple-600/40">
                         <h2 className="text-xl font-semibold text-purple-300 mb-2 font-['Cinzel',_serif]">Câu hỏi của bạn:</h2>
                         <p className="text-gray-300 text-lg italic">"{question}"</p>
                     </div>
@@ -114,14 +153,29 @@ const ReadingResultPage: React.FC = () => {
                     )}
                 </div>
 
-                <div className="text-center">
-                    <Link
-                        to="/tarot/select-spread"
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                        Thực Hiện Trải Bài Khác
-                    </Link>
+                <div className="flex flex-col items-center justify-center">
+                    <div className="text-center">
+                        <Link
+                            to="/tarot/select-spread"
+                            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                        >
+                            Thực Hiện Trải Bài Khác
+                        </Link>
+                    </div>
+
+                    {user && (
+                        <button
+                            onClick={saveReading}
+                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-16 py-2.5 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                        >
+                            Lưu Vào Lịch Sử
+                        </button>
+                    )}
                 </div>
+
+                {saveStatus && (
+                    <p className="mt-4 text-center text-sm">{saveStatus}</p>
+                )}
             </div>
         </div>
     );

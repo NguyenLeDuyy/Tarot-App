@@ -53,14 +53,14 @@ b.  **Cài đặt các thư viện cần thiết:**
     Chạy lệnh sau để cài đặt các gói phụ thuộc được định nghĩa trong file `package.json`.
 
     ```bash
-    npm install
+npm install
     ```
 
 c.  **Chạy ứng dụng frontend:**
     Lệnh này sẽ khởi động server phát triển cho frontend.
 
     ```bash
-    npm run dev
+npm run dev
     ```
     Sau khi chạy thành công, bạn sẽ thấy một địa chỉ (thường là `http://localhost:5173` hoặc tương tự) trong terminal. Mở trình duyệt và truy cập địa chỉ đó để xem trang web.
 
@@ -74,7 +74,7 @@ b.  **Di chuyển vào thư mục backend:**
     Từ thư mục gốc `Tarot-App`, chạy lệnh:
 
     ```bash
-    cd tarot-backend
+cd tarot-backend
     ```
 
 c.  **Cài đặt các thư viện cần thiết cho backend:**

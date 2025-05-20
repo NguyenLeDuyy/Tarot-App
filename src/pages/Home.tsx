@@ -21,7 +21,7 @@ const Home: React.FC = () => (
                     className="mx-auto h-16 sm:h-20 w-auto mb-6 drop-shadow-lg"
                 />
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-purple-200 drop-shadow-lg font-['Cinzel',_serif]">
-                    Chào Mừng Đến Với Tarot Horizon
+                    Chào Mừng Bạn Đến Với Tarot Horizon
                 </h1>
                 <p className="text-lg sm:text-xl mb-8 text-purple-100">
                     Khám phá vận mệnh, giải mã bí ẩn và tìm kiếm sự dẫn lối từ những lá bài Tarot huyền bí.

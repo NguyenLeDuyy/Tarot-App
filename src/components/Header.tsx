@@ -88,6 +88,10 @@ const Header: React.FC = () => {
                     {/* TODO: Xử lý menu mobile sẽ cần hiển thị user/logout hoặc login/register tương ứng */}
                 </button>
             </div>
+
+            <Link to="/tarot/history" className="nav-link">
+                Lịch Sử Bói
+            </Link>
         </header>
     );
 };

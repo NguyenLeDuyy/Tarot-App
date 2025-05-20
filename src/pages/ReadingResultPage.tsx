@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import type { TarotCard } from '../data/tarotDeck';
 import TarotCardDisplay from '../components/TarotCardDisplay';
@@ -76,28 +76,42 @@ const ReadingResultPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Phần luận giải */}
-                <div className="mb-10 p-6 sm:p-8 bg-slate-800/70 backdrop-blur-md rounded-xl shadow-2xl border border-purple-600/50">
-                    <h2 className="text-2xl font-semibold text-purple-300 mb-4 font-['Cinzel',_serif]">Luận Giải Chi Tiết Từ AI:</h2>
-                    <div
-                        className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed"
-                    >
-                        {/* Ví dụ hiển thị ý nghĩa dựa trên chiều lá bài */}
+                {/* Phần hiển thị ý nghĩa từng lá (tóm tắt) */}
+                <div className="mb-10 p-6 sm:p-8 bg-slate-800/60 backdrop-blur-sm rounded-xl shadow-lg border border-purple-600/40">
+                    <h2 className="text-2xl font-semibold text-purple-300 mb-4 font-['Cinzel',_serif]">Tóm Tắt Ý Nghĩa Từng Lá:</h2>
+                    <div className="space-y-4">
                         {drawnCards.map((card, index) => (
-                            <div key={index} className="mb-3 p-3 bg-slate-900/50 rounded-md">
-                                <h4 className="font-semibold text-purple-300">{card.name} {card.isReversed ? '(Ngược)' : '(Xuôi)'} - {spreadLayout ? spreadLayout[index] : `Lá ${index + 1}`}</h4>
+                            <div key={`summary-${card.id || index}`} className="p-3 bg-slate-900/50 rounded-md">
+                                <h4 className="font-semibold text-purple-300">
+                                    {card.name} {card.isReversed ? '(Ngược)' : '(Xuôi)'}
+                                    {spreadLayout && spreadLayout[index] && ` - ${spreadLayout[index]}`}
+                                </h4>
                                 <p className="text-sm text-gray-400">{card.isReversed ? card.reversedMeaning : card.uprightMeaning}</p>
                                 {(card.isReversed ? card.keywordsReversed : card.keywordsUpright) && (
-                                    <p className="text-xs text-gray-500 mt-1">Keywords: {(card.isReversed ? card.keywordsReversed : card.keywordsUpright)?.join(', ')}</p>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        Keywords: {(card.isReversed ? card.keywordsReversed : card.keywordsUpright)?.join(', ')}
+                                    </p>
                                 )}
                             </div>
                         ))}
-                        <hr className="my-4 border-purple-700/50" />
-                        <h4 className="font-semibold text-purple-300 mt-4">Luận giải tổng hợp (từ AI):</h4>
-                        {interpretation.split('\n').map((paragraph, idx) => (
-                            <p key={idx} className="mb-4">{paragraph}</p>
-                        ))}
                     </div>
+                </div>
+
+                {/* Phần luận giải từ AI */}
+                <div className="mb-10 p-6 sm:p-8 bg-slate-800/70 backdrop-blur-md rounded-xl shadow-2xl border border-purple-600/50">
+                    <h2 className="text-2xl font-semibold text-purple-300 mb-4 font-['Cinzel',_serif]">Luận Giải Chi Tiết Từ AI:</h2>
+                    {interpretation ? (
+                        <div
+                            className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed space-y-4"
+                        // Giả sử 'interpretation' là một string dài, có thể chứa các dấu xuống dòng '\n'
+                        >
+                            {interpretation.split('\n').map((paragraph, idx) => (
+                                <p key={idx}>{paragraph}</p>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-gray-400">Không có luận giải từ AI hoặc đã xảy ra lỗi.</p>
+                    )}
                 </div>
 
                 <div className="text-center">

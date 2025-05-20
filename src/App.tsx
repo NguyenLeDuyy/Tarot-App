@@ -11,6 +11,15 @@ import TarotReadingPage from './pages/TarotReadingPage';
 import ReadingResultPage from './pages/ReadingResultPage';
 import ReadingHistoryPage from './pages/ReadingHistoryPage';
 import ReadingDetailPage from './pages/ReadingDetailPage';
+import AboutTarotPage from './pages/AboutTarotPage';
+import AboutProjectPage from './pages/AboutProjectPage';
+
+// <<<<<< IMPORT CÁC TRANG SPREAD INFO MỚI >>>>>>
+import ThreeCardSpreadPage from './pages/ThreeCardSpreadPage';
+import CelticCrossSpreadPage from './pages/CelticCrossSpreadPage';
+import LoveSpreadPage from './pages/LoveSpreadPage';
+import CareerPathSpreadPage from './pages/CareerPathSpreadPage';
+
 import './App.css' // Nếu có
 
 const App: React.FC = () => {
@@ -21,11 +30,20 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+
+          {/* Routes for spread information pages */}
+          <Route path="/spreads/three-card" element={<ThreeCardSpreadPage />} />
+          <Route path="/spreads/celtic-cross" element={<CelticCrossSpreadPage />} />
+          <Route path="/spreads/love-relationship" element={<LoveSpreadPage />} />
+          <Route path="/spreads/career-path" element={<CareerPathSpreadPage />} />
+
           <Route path="/tarot/select-spread" element={<SelectSpreadPage />} /> {/* <<<<<< ROUTE MỚI */}
           <Route path="/tarot/reading/:spreadId" element={<TarotReadingPage />} /> {/* <<<<<< ROUTE MỚI */}
           <Route path="/tarot/result" element={<ReadingResultPage />} /> {/* <<<<<< ROUTE MỚI */}
           <Route path="/tarot/history" element={<ReadingHistoryPage />} />
           <Route path="/tarot/history/:readingId" element={<ReadingDetailPage />} />
+          <Route path="/about-tarot" element={<AboutTarotPage />} />
+          <Route path="/about-project" element={<AboutProjectPage />} />
           {/* Thêm các routes khác ở đây, ví dụ cho TarotReadingPage sau này */}
           {/* <Route path="/tarot/reading/:spreadId" element={<TarotReadingPage />} /> */}
         </Routes>

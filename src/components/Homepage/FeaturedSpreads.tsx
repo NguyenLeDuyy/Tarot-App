@@ -21,11 +21,7 @@ const SpreadCard: React.FC<SpreadCardProps> = ({ title, description, imageSrc, l
         <div className="p-6">
             <h3 className="text-2xl font-bold font-['Cinzel',_serif] text-purple-300 mb-2">{title}</h3>
             <p className="text-gray-400 text-sm mb-4 h-12 overflow-hidden">{description}</p>
-            <Link to={linkTo}>
-                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                    Xem Trải Bài
-                </button>
-            </Link>
+            <Link to={linkTo} className="text-pink-400 hover:text-pink-300 font-semibold">Chọn trải bài &rarr;</Link>
         </div>
     </div>
 );
@@ -36,19 +32,19 @@ const FeaturedSpreads: React.FC = () => {
             title: "Trải Bài 3 Lá",
             description: "Khám phá quá khứ, hiểu rõ hiện tại và hé mở những khả năng của tương lai.",
             imageSrc: spreadImages.threeCard,
-            linkTo: "/tarot/three-card", // Điều chỉnh link nếu cần
+            linkTo: "/tarot/reading/three-card", // Điều chỉnh link nếu cần
         },
         {
             title: "Celtic Cross",
             description: "Một cái nhìn tổng quan và sâu sắc về mọi khía cạnh trong cuộc sống của bạn.",
             imageSrc: spreadImages.celticCross,
-            linkTo: "/tarot/celtic-cross", // Điều chỉnh link nếu cần
+            linkTo: "/tarot/reading/celtic-cross", // Điều chỉnh link nếu cần
         },
         {
             title: "Trải Bài Tình Yêu",
             description: "Lắng nghe những thông điệp vũ trụ về chuyện tình cảm, mối quan hệ của bạn.",
             imageSrc: spreadImages.loveSpread,
-            linkTo: "/tarot/love", // Điều chỉnh link nếu cần
+            linkTo: "/tarot/reading/love-relationship", // Điều chỉnh link nếu cần
         },
         // Bạn có thể thêm các kiểu trải bài khác ở đây
     ];

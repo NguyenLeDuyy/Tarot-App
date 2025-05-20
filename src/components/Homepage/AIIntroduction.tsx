@@ -42,7 +42,7 @@ const AIIntroduction: React.FC = () => (
                     </ul>
                 </div>
 
-                <div className="bg-slate-800/70 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 border border-purple-700/30 flex flex-col items-center justify-center text-center">
+                <div className="bg-slate-800/70 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 border border-purple-700/30 flex flex-col items-center justify-center text-center transform transition-all duration-300 hover:shadow-teal-500/40">
                     {/* <FaRobot className="text-6xl text-cyan-400 mb-6" /> */}
                     <img src="src/assets/images/ai-tarot-concept.png" alt="AI Tarot Concept" className="w-48 h-auto mb-6 opacity-80" /> {/* Thay bằng hình ảnh phù hợp */}
                     <h3 className="text-2xl font-semibold font-['Cinzel',_serif] text-cyan-300 mb-3">

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fullTarotDeck as tarotDeck } from '../data/tarotDeck'; // Sử dụng full deck cho dễ test
-import type { TarotCard } from '../data/tarotDeck'; // <<<<<< CHANGE HERE
+import { spreadDefinitions } from '../data/spreadDefinitions';
+import type { TarotCard } from '../data/tarotDeck';
+import { fullTarotDeck as tarotDeck } from '../data/tarotDeck';
 
 // Định nghĩa lại thông tin kiểu trải bài để biết số lượng lá cần rút
 // Bạn có thể lấy thông tin này từ một nguồn chung nếu muốn
-const spreadDetails: { [key: string]: { name: string; cardCount: number; layout?: string[] } } = {
-    'three-card': { name: 'Trải Bài 3 Lá', cardCount: 3, layout: ['Quá khứ', 'Hiện tại', 'Tương lai'] },
-    'celtic-cross': { name: 'Trải Bài Celtic Cross', cardCount: 10, layout: ['Hiện tại', 'Thách thức', 'Nền tảng', 'Quá khứ gần', 'Tiềm năng', 'Tương lai gần', 'Bạn', 'Môi trường', 'Hy vọng/Sợ hãi', 'Kết quả'] }, // Cần layout chi tiết hơn
-    'love-relationship': { name: 'Trải Bài Tình Yêu', cardCount: 5, layout: ['Bạn', 'Đối phương', 'Tình trạng MQH', 'Thách thức', 'Kết quả tiềm năng'] },
-    'career-path': { name: 'Trải Bài Sự Nghiệp', cardCount: 4, layout: ['Hiện trạng', 'Trở ngại', 'Cơ hội', 'Lời khuyên'] },
-};
+// const spreadDetails: { [key: string]: { name: string; cardCount: number; layout?: string[] } } = {  // <<<<<< REMOVE OR COMMENT OUT THIS
+//     'three-card': { name: 'Trải Bài 3 Lá', cardCount: 3, layout: ['Quá khứ', 'Hiện tại', 'Tương lai'] },
+//     'celtic-cross': { name: 'Trải Bài Celtic Cross', cardCount: 10, layout: ['Hiện tại', 'Thách thức', 'Nền tảng', 'Quá khứ gần', 'Tiềm năng', 'Tương lai gần', 'Bạn', 'Môi trường', 'Hy vọng/Sợ hãi', 'Kết quả'] }, 
+//     'love-relationship': { name: 'Trải Bài Tình Yêu', cardCount: 5, layout: ['Bạn', 'Đối phương', 'Tình trạng MQH', 'Thách thức', 'Kết quả tiềm năng'] },
+//     'career-path': { name: 'Trải Bài Sự Nghiệp', cardCount: 4, layout: ['Hiện trạng', 'Trở ngại', 'Cơ hội', 'Lời khuyên'] },
+// };
 
 interface DisplayableDrawnCard extends TarotCard {
     isReversed: boolean;
@@ -29,8 +30,8 @@ const TarotReadingPage: React.FC = () => {
     const [errorInterpretation, setErrorInterpretation] = useState<string | null>(null);
 
     useEffect(() => {
-        if (spreadId && spreadDetails[spreadId]) {
-            const spread = spreadDetails[spreadId];
+        if (spreadId && spreadDefinitions[spreadId]) {
+            const spread = spreadDefinitions[spreadId];
             setCurrentSpread(spread);
             setCardPlaceholders(Array(spread.cardCount).fill(null));
             setDrawnCards([]); // Reset cards khi spread thay đổi

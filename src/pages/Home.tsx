@@ -9,37 +9,55 @@ import Testimonials from '../components/Homepage/Testimonials';
 import TarotBasics from '../components/Homepage/TarotBasics';
 import FAQ from '../components/Homepage/FAQ';
 import ContactForm from '../components/Homepage/ContactForm';
+import Header from '../components/Header';
+
+const AnimatedStars: React.FC = () => (
+    <svg className="absolute inset-0 -z-10 h-full w-full" aria-hidden="true">
+        <defs>
+            <pattern
+                id="hero-pattern"
+                width="64"
+                height="64"
+                patternUnits="userSpaceOnUse"
+                patternTransform="translate(0)"
+            >
+                <path d="M0 32a1 1 0 001 1h.01a1 1 0 000-2H1a1 1 0 00-1 1zm31.01 0a1 1 0 001 1h.01a1 1 0 000-2H32.01a1 1 0 00-1 1zM15.51 0a1 1 0 001 1h.01a1 1 0 000-2H16.51a1 1 0 00-1 1zm32 0a1 1 0 001 1h.01a1 1 0 000-2H48.51a1 1 0 00-1 1zM0 63a1 1 0 001 1h.01a1 1 0 000-2H1a1 1 0 00-1 1zm31.01 0a1 1 0 001 1h.01a1 1 0 000-2H32.01a1 1 0 00-1 1zM15.51 32a1 1 0 001 1h.01a1 1 0 000-2H16.51a1 1 0 00-1 1zm32 0a1 1 0 001 1h.01a1 1 0 000-2H48.51a1 1 0 00-1 1z" fill="#4C1D95" />
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#hero-pattern)" />
+    </svg>
+);
 
 const Home: React.FC = () => (
-    <> {/* Chỉ cần Fragment hoặc div bao quanh các section */}
-        {/* Nội dung chính - Hero Section */}
-        <section className="relative z-10 flex flex-col items-center justify-center min-h-[calc(80vh-88px)] sm:min-h-[calc(80vh-80px)] px-4 text-center pt-10 pb-10"> {/* Điều chỉnh padding/min-height nếu cần */}
-            <div className="bg-[#2D1B4A]/80 rounded-2xl shadow-2xl p-10 max-w-3xl w-full border border-purple-500 backdrop-blur-md">
-                <img
-                    src="/src/assets/bg/logo.png"
-                    alt="Tarot Horizon Logo"
-                    className="mx-auto h-16 sm:h-20 w-auto mb-6 drop-shadow-lg"
-                />
-                <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-purple-200 drop-shadow-lg font-['Cinzel',_serif]">
-                    Chào Mừng Bạn Đến Với Tarot Horizon
+    <div className="relative min-h-screen bg-gradient-to-br from-[#110C21] via-[#1A112C] to-[#24143D] text-gray-200 overflow-hidden">
+        <AnimatedStars />
+
+        <main className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-24">
+            <div className="container mx-auto px-4 text-center">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel',_serif] mb-6">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400">
+                        Khám Phá Bí Ẩn Tarot
+                    </span>
                 </h1>
-                <p className="text-lg sm:text-xl mb-8 text-purple-100">
-                    Khám phá vận mệnh, giải mã bí ẩn và tìm kiếm sự dẫn lối từ những lá bài Tarot huyền bí.
+                <p className="text-lg sm:text-xl text-purple-200 max-w-2xl mx-auto mb-10 leading-relaxed font-['Lato',_sans-serif]">
+                    Chào mừng bạn đến với thế giới huyền bí của Tarot. Hãy đặt câu hỏi, chọn một trải bài, và để những lá bài dẫn lối, hé lộ những hiểu biết sâu sắc về cuộc sống, tình yêu và sự nghiệp của bạn với sự trợ giúp từ AI thông thái của chúng tôi.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-                    <Link to="/tarot/select-spread">
-                        <button className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3.5 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                            Bắt Đầu Trải Bài
-                        </button>
+                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <Link
+                        to="/tarot/select-spread"
+                        className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    >
+                        Bắt Đầu Trải Bài
                     </Link>
-                    <Link to="/guide">
-                        <button className="w-full sm:w-auto bg-purple-400/70 backdrop-blur-sm border border-purple-500 hover:bg-purple-600/80 text-white px-8 py-3.5 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                            Tìm Hiểu Thêm
-                        </button>
+                    <Link
+                        to="/about-tarot"
+                        className="inline-block bg-transparent border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-10 py-3.5 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                    >
+                        Tìm Hiểu Thêm
                     </Link>
                 </div>
             </div>
-        </section>
+        </main>
 
         <FeaturedSpreads />
         <AIIntroduction />
@@ -48,7 +66,11 @@ const Home: React.FC = () => (
         <TarotBasics />
         <FAQ />
         <ContactForm />
-    </>
+
+        <footer className="py-8 bg-black bg-opacity-30 text-center">
+            <p className="text-purple-200 font-['Lato',_sans-serif]">&copy; {new Date().getFullYear()} Web Bói Bài Tarot AI. All rights reserved.</p>
+        </footer>
+    </div>
 );
 
 export default Home;

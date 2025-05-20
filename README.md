@@ -2,6 +2,7 @@
 
 Hướng dẫn: 
 ```js
+git pull origin 
 cd tarot-app
 npm install
 npm run dev

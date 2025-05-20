@@ -3,10 +3,16 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import type { TarotCard } from '../data/tarotDeck';
 import TarotCardDisplay from '../components/TarotCardDisplay';
 
+// Interface này nên khớp với interface DisplayableDrawnCard từ TarotReadingPage.tsx
+// hoặc bạn có thể import nó nếu đã export từ đó.
+interface DisplayableDrawnCard extends TarotCard {
+    isReversed: boolean;
+}
+
 // Giả sử đây là cấu trúc state được truyền từ TarotReadingPage
 interface ReadingResultLocationState {
     question: string;
-    drawnCards: TarotCard[];
+    drawnCards: DisplayableDrawnCard[];
     spreadName: string;
     spreadLayout?: string[]; // Tên các vị trí lá bài
     interpretation: string; // Phần luận giải từ AI (sẽ được thay thế bằng dữ liệu thật)
@@ -63,7 +69,8 @@ const ReadingResultPage: React.FC = () => {
                                 key={card.id || index}
                                 card={card}
                                 positionName={spreadLayout ? spreadLayout[index] : `Lá ${index + 1}`}
-                                className="w-full" // Để đảm bảo card chiếm đủ không gian trong ô grid
+                                className="w-full"
+                                isReversed={card.isReversed}
                             />
                         ))}
                     </div>
@@ -74,13 +81,21 @@ const ReadingResultPage: React.FC = () => {
                     <h2 className="text-2xl font-semibold text-purple-300 mb-4 font-['Cinzel',_serif]">Luận Giải Chi Tiết Từ AI:</h2>
                     <div
                         className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed"
-                    // Giả sử 'interpretation' là HTML, nếu không, chỉ cần <p>{interpretation}</p>
-                    // Cẩn thận với dangerouslySetInnerHTML nếu dữ liệu từ nguồn không đáng tin cậy
-                    // dangerouslySetInnerHTML={{ __html: interpretation }}
                     >
-                        {/* Tách đoạn văn bản bằng \n để hiển thị đẹp hơn */}
-                        {interpretation.split('\n').map((paragraph, index) => (
-                            <p key={index} className="mb-4">{paragraph}</p>
+                        {/* Ví dụ hiển thị ý nghĩa dựa trên chiều lá bài */}
+                        {drawnCards.map((card, index) => (
+                            <div key={index} className="mb-3 p-3 bg-slate-900/50 rounded-md">
+                                <h4 className="font-semibold text-purple-300">{card.name} {card.isReversed ? '(Ngược)' : '(Xuôi)'} - {spreadLayout ? spreadLayout[index] : `Lá ${index + 1}`}</h4>
+                                <p className="text-sm text-gray-400">{card.isReversed ? card.reversedMeaning : card.uprightMeaning}</p>
+                                {(card.isReversed ? card.keywordsReversed : card.keywordsUpright) && (
+                                    <p className="text-xs text-gray-500 mt-1">Keywords: {(card.isReversed ? card.keywordsReversed : card.keywordsUpright)?.join(', ')}</p>
+                                )}
+                            </div>
+                        ))}
+                        <hr className="my-4 border-purple-700/50" />
+                        <h4 className="font-semibold text-purple-300 mt-4">Luận giải tổng hợp (từ AI):</h4>
+                        {interpretation.split('\n').map((paragraph, idx) => (
+                            <p key={idx} className="mb-4">{paragraph}</p>
                         ))}
                     </div>
                 </div>

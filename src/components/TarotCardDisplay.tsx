@@ -6,9 +6,10 @@ interface TarotCardDisplayProps {
     positionName?: string;   // Tên vị trí lá bài, ví dụ: "Quá khứ", "Lá 1"
     className?: string;      // Cho phép truyền thêm class tùy chỉnh
     showName?: boolean;      // Có hiển thị tên lá bài hay không
+    isReversed?: boolean;    // <<<<<< THÊM DÒNG NÀY
 }
 
-const TarotCardDisplay: React.FC<TarotCardDisplayProps> = ({ card, positionName, className = '', showName = true }) => {
+const TarotCardDisplay: React.FC<TarotCardDisplayProps> = ({ card, positionName, className = '', showName = true, isReversed }) => {
     if (!card) {
         // Có thể hiển thị một placeholder nếu card là null, hoặc không render gì cả
         return (
@@ -23,12 +24,12 @@ const TarotCardDisplay: React.FC<TarotCardDisplayProps> = ({ card, positionName,
             <img
                 src={card.image || '/src/assets/images/cards/placeholder-card-back.png'} // Fallback nếu không có image
                 alt={card.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${isReversed ? 'transform rotate-180' : ''}`} // <<<<<< THÊM XOAY
             />
             {showName && (
                 <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2 text-center">
                     <p className="text-white text-xs sm:text-sm font-semibold truncate" title={card.name}>
-                        {card.name}
+                        {card.name} {isReversed ? '(R)' : ''} {/* <<<<<< HIỂN THỊ (R) NẾU NGƯỢC */}
                     </p>
                 </div>
             )}

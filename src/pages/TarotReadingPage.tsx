@@ -12,12 +12,16 @@ const spreadDetails: { [key: string]: { name: string; cardCount: number; layout?
     'career-path': { name: 'Trải Bài Sự Nghiệp', cardCount: 4, layout: ['Hiện trạng', 'Trở ngại', 'Cơ hội', 'Lời khuyên'] },
 };
 
+interface DisplayableDrawnCard extends TarotCard {
+    isReversed: boolean;
+}
+
 const TarotReadingPage: React.FC = () => {
     const { spreadId } = useParams<{ spreadId: string }>();
     const navigate = useNavigate();
 
     const [question, setQuestion] = useState<string>('');
-    const [drawnCards, setDrawnCards] = useState<TarotCard[]>([]);
+    const [drawnCards, setDrawnCards] = useState<DisplayableDrawnCard[]>([]);
     const [cardPlaceholders, setCardPlaceholders] = useState<null[]>([]);
     const [isDrawing, setIsDrawing] = useState<boolean>(false);
     const [currentSpread, setCurrentSpread] = useState<{ name: string; cardCount: number; layout?: string[] } | null>(null);
@@ -40,11 +44,14 @@ const TarotReadingPage: React.FC = () => {
         setIsDrawing(true);
         // Logic rút bài ngẫu nhiên không lặp lại
         const shuffledDeck = [...tarotDeck].sort(() => 0.5 - Math.random());
-        const selected = shuffledDeck.slice(0, currentSpread.cardCount);
+        const selectedWithOrientation = shuffledDeck.slice(0, currentSpread.cardCount).map(card => ({
+            ...card,
+            isReversed: Math.random() < 0.33 // Ví dụ: 33% cơ hội là lá ngược
+        }));
 
         // Mô phỏng việc rút bài từ từ
-        let cardsToShow: TarotCard[] = [];
-        selected.forEach((card, index) => {
+        let cardsToShow: DisplayableDrawnCard[] = [];
+        selectedWithOrientation.forEach((card, index) => {
             setTimeout(() => {
                 cardsToShow = [...cardsToShow, card];
                 // Cập nhật mảng drawnCards với các lá đã rút và giữ các placeholder cho các lá chưa rút
@@ -54,7 +61,7 @@ const TarotReadingPage: React.FC = () => {
                     return newDrawn;
                 });
 
-                if (index === selected.length - 1) {
+                if (index === selectedWithOrientation.length - 1) {
                     setIsDrawing(false);
                 }
             }, (index + 1) * 500); // Hiển thị mỗi lá sau 0.5s

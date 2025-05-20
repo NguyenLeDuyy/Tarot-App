@@ -1,12 +1,14 @@
 # React + TypeScript + Vite
 
 Hướng dẫn: 
+```js
 cd tarot-app
 npm install
 npm run dev
 cd tarot-backend
 npm install
 nodemon server.js
+```
 
 Currently, two official plugins are available:
 

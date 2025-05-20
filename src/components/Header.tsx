@@ -4,14 +4,25 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // <<<<<< IMPORT MỚI
 import { spreadDefinitions } from '../data/spreadDefinitions'; // <<<<<< IMPORT SPREAD DEFINITIONS
 
+// Define suits for the new dropdown
+const suits = [
+    { id: 'cups', name: 'Cúp (Cups)', path: '/explore/minor-arcana/cups' },
+    { id: 'wands', name: 'Gậy (Wands)', path: '/explore/minor-arcana/wands' },
+    { id: 'swords', name: 'Kiếm (Swords)', path: '/explore/minor-arcana/swords' },
+    { id: 'pentacles', name: 'Đồng Tiền (Pentacles)', path: '/explore/minor-arcana/pentacles' },
+];
+
 const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isIntroDropdownOpen, setIsIntroDropdownOpen] = useState(false);
     const [isSpreadsDropdownOpen, setIsSpreadsDropdownOpen] = useState(false); // <<<<<< NEW: State for Spreads dropdown
+    const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false); // <<<<<< NEW: State for Explore dropdown
+    const [isMinorArcanaSubOpen, setIsMinorArcanaSubOpen] = useState(false); // <<<<<< NEW: State for Minor Arcana sub-dropdown
     const { isLoggedIn, user, logout, isLoading } = useAuth(); // <<<<<< SỬ DỤNG HOOK
     const navigate = useNavigate();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const spreadsDropdownRef = useRef<HTMLDivElement>(null); // <<<<<< NEW: Ref for Spreads dropdown
+    const exploreDropdownRef = useRef<HTMLDivElement>(null); // <<<<<< NEW: Ref for Explore dropdown
 
     const handleLogout = () => {
         logout();
@@ -27,6 +38,10 @@ const Header: React.FC = () => {
             if (spreadsDropdownRef.current && !spreadsDropdownRef.current.contains(event.target as Node)) {
                 setIsSpreadsDropdownOpen(false); // <<<<<< Close Spreads dropdown
             }
+            if (exploreDropdownRef.current && !exploreDropdownRef.current.contains(event.target as Node)) {
+                setIsExploreDropdownOpen(false);
+                setIsMinorArcanaSubOpen(false); // Close sub-menu as well
+            }
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -36,6 +51,8 @@ const Header: React.FC = () => {
 
     const navLinkClasses = "text-purple-200 hover:text-pink-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300";
     const activeNavLinkClasses = "text-pink-400";
+    const dropdownItemClasses = (isActive: boolean) =>
+        `block px-4 py-2 text-sm ${isActive ? 'text-pink-400 bg-slate-700' : 'text-purple-200 hover:bg-slate-700 hover:text-pink-300'}`;
 
     if (isLoading) {
         return (
@@ -50,6 +67,19 @@ const Header: React.FC = () => {
             </header>
         );
     }
+
+    const closeAllDropdownsAndNavigate = (path: string) => {
+        setIsIntroDropdownOpen(false);
+        setIsSpreadsDropdownOpen(false);
+        setIsExploreDropdownOpen(false);
+        setIsMinorArcanaSubOpen(false);
+        setIsMobileMenuOpen(false);
+        navigate(path);
+    };
+
+    const handleMenuItemClick = (path: string) => {
+        closeAllDropdownsAndNavigate(path);
+    };
 
     return (
         <header className="sticky top-0 left-0 right-0 z-50 bg-gradient-to-b from-[#110C21] via-[#110c21c2] to-[#110C21] pt-4 pb-2 shadow-lg"> {/* Added sticky and some bg to ensure visibility */}
@@ -70,7 +100,7 @@ const Header: React.FC = () => {
                         <div className="relative" ref={spreadsDropdownRef}>
                             <button
                                 onClick={() => setIsSpreadsDropdownOpen(!isSpreadsDropdownOpen)}
-                                onMouseEnter={() => setIsSpreadsDropdownOpen(true)}
+                                onMouseEnter={() => { setIsSpreadsDropdownOpen(true); setIsExploreDropdownOpen(false); setIsIntroDropdownOpen(false); }}
                                 className={`${navLinkClasses} flex items-center`}
                             >
                                 Trải Bài
@@ -79,15 +109,14 @@ const Header: React.FC = () => {
                             {isSpreadsDropdownOpen && (
                                 <div
                                     className="absolute mt-2 w-56 rounded-md shadow-lg bg-slate-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
-                                    onMouseEnter={() => setIsSpreadsDropdownOpen(true)}
                                     onMouseLeave={() => setIsSpreadsDropdownOpen(false)}
                                 >
                                     {Object.values(spreadDefinitions).map((spread) => (
                                         <NavLink
                                             key={spread.id}
                                             to={`/spreads/${spread.id}`}
-                                            className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? 'text-pink-400 bg-slate-700' : 'text-purple-200 hover:bg-slate-700 hover:text-pink-300'}`}
-                                            onClick={() => setIsSpreadsDropdownOpen(false)}
+                                            className={({ isActive }) => dropdownItemClasses(isActive)}
+                                            onClick={() => handleMenuItemClick(`/spreads/${spread.id}`)}
                                         >
                                             {spread.name}
                                         </NavLink>
@@ -95,10 +124,59 @@ const Header: React.FC = () => {
                                     <div className="border-t border-slate-700 my-1"></div>
                                     <NavLink
                                         to="/tarot/select-spread"
-                                        className={({ isActive }) => `block px-4 py-2 text-sm font-semibold ${isActive ? 'text-pink-400 bg-slate-700' : 'text-yellow-400 hover:bg-slate-700 hover:text-yellow-300'}`}
-                                        onClick={() => setIsSpreadsDropdownOpen(false)}
+                                        className={({ isActive }) => `font-semibold ${dropdownItemClasses(isActive)} ${isActive ? '' : 'text-yellow-400 hover:text-yellow-300'}`}
+                                        onClick={() => handleMenuItemClick('/tarot/select-spread')}
                                     >
                                         Xem Tất Cả Trải Bài
+                                    </NavLink>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Explore Dropdown - Desktop */}
+                        <div className="relative" ref={exploreDropdownRef}>
+                            <button
+                                onClick={() => setIsExploreDropdownOpen(!isExploreDropdownOpen)}
+                                onMouseEnter={() => { setIsExploreDropdownOpen(true); setIsSpreadsDropdownOpen(false); setIsIntroDropdownOpen(false); }}
+                                className={`${navLinkClasses} flex items-center`}
+                            >
+                                Khám Phá
+                                <svg className={`w-4 h-4 ml-1 transition-transform duration-200 ${isExploreDropdownOpen ? 'transform rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            </button>
+                            {isExploreDropdownOpen && (
+                                <div
+                                    className="absolute mt-2 w-56 rounded-md shadow-lg bg-slate-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
+                                    onMouseLeave={() => { setIsExploreDropdownOpen(false); setIsMinorArcanaSubOpen(false); }}
+                                >
+                                    <NavLink to="/explore/major-arcana" className={({ isActive }) => dropdownItemClasses(isActive)} onClick={() => handleMenuItemClick('/explore/major-arcana')}>
+                                        Ẩn Chính (Major Arcana)
+                                    </NavLink>
+                                    <div className="relative">
+                                        <button
+                                            onMouseEnter={() => setIsMinorArcanaSubOpen(true)}
+                                            className="w-full text-left px-4 py-2 text-sm text-purple-200 hover:bg-slate-700 hover:text-pink-300 flex justify-between items-center"
+                                        >
+                                            Ẩn Phụ (Minor Arcana)
+                                            <svg className="w-4 h-4 transform" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
+                                        </button>
+                                        {isMinorArcanaSubOpen && (
+                                            <div className="absolute top-0 left-full ml-1 w-56 rounded-md shadow-lg bg-slate-700 ring-1 ring-black ring-opacity-5 py-1"
+                                                onMouseLeave={() => setIsMinorArcanaSubOpen(false)}>
+                                                {suits.map(suit => (
+                                                    <NavLink key={suit.id} to={suit.path} className={({ isActive }) => dropdownItemClasses(isActive)} onClick={() => handleMenuItemClick(suit.path)}>
+                                                        {suit.name}
+                                                    </NavLink>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="border-t border-slate-700 my-1"></div>
+                                    <NavLink
+                                        to="/explore/all-cards"
+                                        className={({ isActive }) => `font-semibold ${dropdownItemClasses(isActive)} ${isActive ? '' : 'text-yellow-400 hover:text-yellow-300'}`}
+                                        onClick={() => handleMenuItemClick('/explore/all-cards')}
+                                    >
+                                        Toàn Bộ 78 Lá Bài
                                     </NavLink>
                                 </div>
                             )}
@@ -108,7 +186,7 @@ const Header: React.FC = () => {
                         <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={() => setIsIntroDropdownOpen(!isIntroDropdownOpen)}
-                                onMouseEnter={() => setIsIntroDropdownOpen(true)}
+                                onMouseEnter={() => { setIsIntroDropdownOpen(true); setIsSpreadsDropdownOpen(false); setIsExploreDropdownOpen(false); }}
                                 className={`${navLinkClasses} flex items-center`}
                             >
                                 Giới Thiệu
@@ -117,20 +195,19 @@ const Header: React.FC = () => {
                             {isIntroDropdownOpen && (
                                 <div
                                     className="absolute mt-2 w-48 rounded-md shadow-lg bg-slate-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
-                                    onMouseEnter={() => setIsIntroDropdownOpen(true)}
                                     onMouseLeave={() => setIsIntroDropdownOpen(false)}
                                 >
                                     <NavLink
                                         to="/about-tarot"
-                                        className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? 'text-pink-400 bg-slate-700' : 'text-purple-200 hover:bg-slate-700 hover:text-pink-300'}`}
-                                        onClick={() => setIsIntroDropdownOpen(false)}
+                                        className={({ isActive }) => dropdownItemClasses(isActive)}
+                                        onClick={() => handleMenuItemClick('/about-tarot')}
                                     >
                                         Về Tarot
                                     </NavLink>
                                     <NavLink
                                         to="/about-project"
-                                        className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? 'text-pink-400 bg-slate-700' : 'text-purple-200 hover:bg-slate-700 hover:text-pink-300'}`}
-                                        onClick={() => setIsIntroDropdownOpen(false)}
+                                        className={({ isActive }) => dropdownItemClasses(isActive)}
+                                        onClick={() => handleMenuItemClick('/about-project')}
                                     >
                                         Về Tarot Horizon
                                     </NavLink>
@@ -188,7 +265,7 @@ const Header: React.FC = () => {
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-slate-800/95 backdrop-blur-md shadow-lg" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <NavLink to="/" className={({ isActive }) => `block ${navLinkClasses} ${isActive ? activeNavLinkClasses : ''}`} onClick={() => setIsMobileMenuOpen(false)} end>Trang Chủ</NavLink>
+                        <NavLink to="/" className={({ isActive }) => `block ${navLinkClasses} ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick('/')} end>Trang Chủ</NavLink>
 
                         {/* Spreads Links for Mobile */}
                         <div className="text-purple-100 px-3 py-2 text-xs font-medium uppercase">Trải Bài</div>
@@ -197,7 +274,7 @@ const Header: React.FC = () => {
                                 key={`mobile-${spread.id}`}
                                 to={`/spreads/${spread.id}`}
                                 className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => handleMenuItemClick(`/spreads/${spread.id}`)}
                             >
                                 {spread.name}
                             </NavLink>
@@ -205,7 +282,7 @@ const Header: React.FC = () => {
                         <NavLink
                             to="/tarot/select-spread"
                             className={({ isActive }) => `block ${navLinkClasses} ml-2 font-semibold ${isActive ? activeNavLinkClasses : 'text-yellow-400'}`}
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={() => handleMenuItemClick('/tarot/select-spread')}
                         >
                             Xem Tất Cả
                         </NavLink>
@@ -213,15 +290,33 @@ const Header: React.FC = () => {
 
                         {/* Introduction Links for Mobile */}
                         <div className="border-t border-slate-700 my-2"></div>
+                        <div className="text-purple-100 px-3 py-2 text-xs font-medium uppercase">Khám Phá Bài</div>
+                        <NavLink to="/explore/major-arcana" className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick('/explore/major-arcana')}>Ẩn Chính (Major Arcana)</NavLink>
+                        <div className="text-purple-200 px-3 py-1 text-sm ml-2">Ẩn Phụ (Minor Arcana):</div>
+                        {suits.map(suit => (
+                            <NavLink key={`mobile-${suit.id}`} to={suit.path} className={({ isActive }) => `block ${navLinkClasses} ml-4 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick(suit.path)}>
+                                {suit.name}
+                            </NavLink>
+                        ))}
+                        <NavLink
+                            to="/explore/all-cards"
+                            className={({ isActive }) => `block ${navLinkClasses} ml-2 font-semibold ${isActive ? activeNavLinkClasses : 'text-yellow-400'}`}
+                            onClick={() => handleMenuItemClick('/explore/all-cards')}
+                        >
+                            Toàn Bộ 78 Lá Bài
+                        </NavLink>
+
+
+                        <div className="border-t border-slate-700 my-2"></div>
                         <div className="text-purple-100 px-3 py-2 text-xs font-medium uppercase">Giới Thiệu</div>
-                        <NavLink to="/about-tarot" className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Về Tarot</NavLink>
-                        <NavLink to="/about-project" className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Về Tarot Horizon</NavLink>
+                        <NavLink to="/about-tarot" className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick('/about-tarot')}>Về Tarot</NavLink>
+                        <NavLink to="/about-project" className={({ isActive }) => `block ${navLinkClasses} ml-2 ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick('/about-project')}>Về Tarot Horizon</NavLink>
 
 
                         {user && (
                             <>
                                 <div className="border-t border-slate-700 my-2"></div>
-                                <NavLink to="/tarot/history" className={({ isActive }) => `block ${navLinkClasses} ${isActive ? activeNavLinkClasses : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Lịch Sử</NavLink>
+                                <NavLink to="/tarot/history" className={({ isActive }) => `block ${navLinkClasses} ${isActive ? activeNavLinkClasses : ''}`} onClick={() => handleMenuItemClick('/tarot/history')}>Lịch Sử</NavLink>
                             </>
                         )}
                     </div>

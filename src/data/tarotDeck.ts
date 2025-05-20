@@ -88,7 +88,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-8',
         name: 'Strength',
-        image: '/Ssrc/assets/images/cards/major-arcana/08-strength.jpg',
+        image: '/src/assets/images/cards/major-arcana/08-strength.jpg',
         uprightMeaning: 'Sức mạnh nội tâm, lòng dũng cảm, sự kiên nhẫn, sự kiểm soát cảm xúc, lòng trắc ẩn, sự tự tin.',
         reversedMeaning: 'Sự yếu đuối, thiếu tự tin, sợ hãi, sự mất kiểm soát, sự nghi ngờ bản thân, sự hung hăng.',
         keywordsUpright: ['sức mạnh nội tâm', 'dũng cảm', 'kiên nhẫn', 'trắc ẩn', 'kiểm soát', 'tự tin'],
@@ -97,7 +97,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-9',
         name: 'The Hermit',
-        image: 'src/assets/images/cards/major-arcana/09-hermit.jpg',
+        image: '/src/assets/images/cards/major-arcana/09-hermit.jpg',
         uprightMeaning: 'Sự nội tâm, sự tìm kiếm linh hồn, sự cô độc, sự hướng dẫn từ bên trong, sự khôn ngoan, sự suy ngẫm.',
         reversedMeaning: 'Sự cô lập, sự cô đơn, sự thu mình, sự từ chối giúp đỡ, sự sợ hãi xã hội, sự mất phương hướng.',
         keywordsUpright: ['nội tâm', 'suy ngẫm', 'cô độc', 'trí tuệ', 'hướng dẫn nội tâm', 'tìm kiếm'],
@@ -106,7 +106,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-10',
         name: 'Wheel of Fortune',
-        image: 'src/assets/images/cards/major-arcana/10-wheel-of-fortune.jpg',
+        image: '/src/assets/images/cards/major-arcana/10-wheel-of-fortune.jpg',
         uprightMeaning: 'Sự thay đổi, chu kỳ, định mệnh, may mắn, bước ngoặt, sự tiến triển, cơ hội.',
         reversedMeaning: 'Vận rủi, sự trì trệ, sự chống lại thay đổi, sự thiếu may mắn, sự mất kiểm soát, chu kỳ tiêu cực.',
         keywordsUpright: ['thay đổi', 'may mắn', 'chu kỳ', 'định mệnh', 'cơ hội', 'bước ngoặt'],

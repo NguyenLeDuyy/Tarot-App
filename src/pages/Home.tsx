@@ -7,9 +7,9 @@ import AIIntroduction from '../components/Homepage/AIIntroduction';
 import HowToUse from '../components/Homepage/HowToUse';
 import Testimonials from '../components/Homepage/Testimonials';
 import TarotBasics from '../components/Homepage/TarotBasics';
+import FeaturedCards from '../components/Homepage/FeaturedCards';
 import FAQ from '../components/Homepage/FAQ';
 import ContactForm from '../components/Homepage/ContactForm';
-import Header from '../components/Header';
 
 const AnimatedStars: React.FC = () => (
     <svg className="absolute inset-0 -z-10 h-full w-full" aria-hidden="true">
@@ -29,7 +29,7 @@ const AnimatedStars: React.FC = () => (
 );
 
 const Home: React.FC = () => (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#110C21] via-[#1A112C] to-[#24143D] text-gray-200 overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#110C21] via-[#1A112C] to-[#24143D] text-gray-200 overflow-x-hidden">
         <AnimatedStars />
 
         <main className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-24">
@@ -42,7 +42,7 @@ const Home: React.FC = () => (
                 <p className="text-lg sm:text-xl text-purple-200 max-w-2xl mx-auto mb-10 leading-relaxed font-['Lato',_sans-serif]">
                     Chào mừng bạn đến với thế giới huyền bí của Tarot. Hãy đặt câu hỏi, chọn một trải bài, và để những lá bài dẫn lối, hé lộ những hiểu biết sâu sắc về cuộc sống, tình yêu và sự nghiệp của bạn với sự trợ giúp từ AI thông thái của chúng tôi.
                 </p>
-                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
                     <Link
                         to="/tarot/select-spread"
                         className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
@@ -50,10 +50,10 @@ const Home: React.FC = () => (
                         Bắt Đầu Trải Bài
                     </Link>
                     <Link
-                        to="/about-tarot"
+                        to="/explore/all-cards"
                         className="inline-block bg-transparent border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-10 py-3.5 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                     >
-                        Tìm Hiểu Thêm
+                        Khám Phá Toàn Bộ 78 Lá Bài
                     </Link>
                 </div>
             </div>
@@ -61,15 +61,11 @@ const Home: React.FC = () => (
 
         <FeaturedSpreads />
         <AIIntroduction />
+        <TarotBasics />
         <HowToUse />
         <Testimonials />
-        <TarotBasics />
         <FAQ />
         <ContactForm />
-
-        <footer className="py-8 bg-black bg-opacity-30 text-center">
-            <p className="text-purple-200 font-['Lato',_sans-serif]">&copy; {new Date().getFullYear()} Web Bói Bài Tarot AI. All rights reserved.</p>
-        </footer>
     </div>
 );
 

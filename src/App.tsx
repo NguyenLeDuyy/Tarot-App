@@ -20,6 +20,11 @@ import CelticCrossSpreadPage from './pages/CelticCrossSpreadPage';
 import LoveSpreadPage from './pages/LoveSpreadPage';
 import CareerPathSpreadPage from './pages/CareerPathSpreadPage';
 
+// <<<<<< IMPORT EXPLORE PAGES >>>>>>
+import MajorArcanaPage from './pages/MajorArcanaPage';
+import SuitPage from './pages/SuitPage';
+import AllCardsPage from './pages/AllCardsPage';
+
 import './App.css' // Nếu có
 
 const App: React.FC = () => {
@@ -36,6 +41,11 @@ const App: React.FC = () => {
           <Route path="/spreads/celtic-cross" element={<CelticCrossSpreadPage />} />
           <Route path="/spreads/love-relationship" element={<LoveSpreadPage />} />
           <Route path="/spreads/career-path" element={<CareerPathSpreadPage />} />
+
+          {/* Routes for Explore Card pages */}
+          <Route path="/explore/major-arcana" element={<MajorArcanaPage />} />
+          <Route path="/explore/minor-arcana/:suitName" element={<SuitPage />} /> {/* :suitName will be cups, wands, etc. */}
+          <Route path="/explore/all-cards" element={<AllCardsPage />} />
 
           <Route path="/tarot/select-spread" element={<SelectSpreadPage />} /> {/* <<<<<< ROUTE MỚI */}
           <Route path="/tarot/reading/:spreadId" element={<TarotReadingPage />} /> {/* <<<<<< ROUTE MỚI */}

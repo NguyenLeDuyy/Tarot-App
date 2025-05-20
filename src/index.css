@@ -73,3 +73,32 @@ button:focus-visible {
 .animate-twinkle {
   animation: twinkle 3s infinite ease-in-out;
 }
+
+/* Thêm animation fadeIn nếu chưa có */
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity  : 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity  : 1;
+    transform: translateY(0);
+  }
+}
+
+/* Các style toàn cục khác của bạn */
+body {
+  font-family: 'Nunito', sans-serif;
+  /* Ví dụ font */
+  /* Các style mặc định khác cho body */
+}
+
+/* Đảm bảo các font bạn định nghĩa trong tailwind.config.js được import đúng cách, ví dụ: */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Nunito:wght@400;600;700&display=swap');

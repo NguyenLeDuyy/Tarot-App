@@ -42,7 +42,7 @@ const Header: React.FC = () => {
                 {["Trang chủ", "Xem Tarot", "Hướng dẫn", "Giới thiệu"].map((label, i) => (
                     <Link
                         key={label}
-                        to={['/', '/tarot', '/guide', '/about'][i]} // Cập nhật các route này nếu cần
+                        to={['/', '/tarot/select-spread', '/guide', '/about'][i]} // Cập nhật các route này nếu cần
                         className="text-gray-300 hover:text-purple-400 transition-colors duration-300 relative group py-2"
                     >
                         <span>{label}</span>

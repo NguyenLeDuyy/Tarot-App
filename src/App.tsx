@@ -2,9 +2,13 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Login from './components/Login' // Nên chuyển thành pages/Login.tsx
-import Register from './components/Register' // Nên chuyển thành pages/Register.tsx
-import Layout from './components/Layout' // <<<<<< IMPORT MỚI
+// Đường dẫn được cập nhật và giả sử tên file là Login.tsx và Register.tsx trong components
+import LoginPage from './components/Login'
+import RegisterPage from './components/Register'
+import Layout from './components/Layout'
+import SelectSpreadPage from './pages/SelectSpreadPage';
+import TarotReadingPage from './pages/TarotReadingPage';
+import ReadingResultPage from './pages/ReadingResultPage';
 import './App.css' // Nếu có
 
 const App: React.FC = () => {
@@ -13,9 +17,13 @@ const App: React.FC = () => {
       <Layout> {/* <<<<<< SỬ DỤNG LAYOUT */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {/* Thêm các routes khác ở đây */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/tarot/select-spread" element={<SelectSpreadPage />} /> {/* <<<<<< ROUTE MỚI */}
+          <Route path="/tarot/reading/:spreadId" element={<TarotReadingPage />} /> {/* <<<<<< ROUTE MỚI */}
+          <Route path="/tarot/result" element={<ReadingResultPage />} /> {/* <<<<<< ROUTE MỚI */}
+          {/* Thêm các routes khác ở đây, ví dụ cho TarotReadingPage sau này */}
+          {/* <Route path="/tarot/reading/:spreadId" element={<TarotReadingPage />} /> */}
         </Routes>
       </Layout>
     </Router>

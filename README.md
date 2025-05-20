@@ -1,6 +1,12 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hướng dẫn: 
+cd tarot-app
+npm install
+npm run dev
+cd tarot-backend
+npm install
+nodemon server.js
 
 Currently, two official plugins are available:
 

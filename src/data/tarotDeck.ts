@@ -1,3 +1,6 @@
+export type Suit = "Wands" | "Cups" | "Swords" | "Pentacles";
+export type Arcana = "Major Arcana" | "Minor Arcana";
+
 export interface TarotCard {
     id: string;
     name: string;
@@ -7,7 +10,10 @@ export interface TarotCard {
     keywordsUpright?: string[]; // Từ khóa khi lá bài xuôi (tùy chọn)
     keywordsReversed?: string[]; // Từ khóa khi lá bài ngược (tùy chọn)
     isReversed?: boolean; // <<<< ADD THIS LINE
-    // Thêm các thuộc tính khác sau này như: suit, number, astrological_sign, element, etc.
+    arcana: Arcana; // <<<< QUAN TRỌNG: Phải có cho tất cả các lá
+    suit?: Suit;    // <<<< QUAN TRỌNG: Phải có cho Minor Arcana
+    number?: string | number; // Optional: e.g., "Ace", 2, "Page", "Knight", etc.
+    // Thêm các thuộc tính khác sau này như: astrological_sign, element, etc.
 }
 
 // Đây là danh sách rút gọn, bạn cần thêm đủ 78 lá bài
@@ -16,6 +22,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-0',
         name: 'The Fool',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/00-fool.jpg',
         uprightMeaning: 'Sự khởi đầu mới, ngây thơ, tự phát, một tinh thần tự do, niềm tin vào vũ trụ, tiềm năng vô hạn.',
         reversedMeaning: 'Sự ngây thơ biến thành ngu ngốc, chấp nhận rủi ro không cần thiết, thiếu suy nghĩ, liều lĩnh, bất cẩn, sợ hãi sự thay đổi.',
@@ -25,6 +32,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-1',
         name: 'The Magician',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/01-magician.jpg',
         uprightMeaning: 'Sức mạnh ý chí, sự sáng tạo, kỹ năng, tập trung, hiện thực hóa ý tưởng, quyền năng cá nhân.',
         reversedMeaning: 'Lừa dối, thao túng, kỹ năng bị lạm dụng, thiếu tự tin, sức mạnh bị chặn đứng, ảo tưởng sức mạnh.',
@@ -34,6 +42,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-2',
         name: 'The High Priestess',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/02-high-priestess.jpg',
         uprightMeaning: 'Trực giác, bí ẩn, tiềm thức, sự khôn ngoan nội tâm, bí mật, sự kiên nhẫn, lắng nghe bên trong.',
         reversedMeaning: 'Bỏ qua trực giác, bí mật bị phơi bày, thiếu hiểu biết về bản thân, thông tin sai lệch, sự cô lập, cảm xúc bị kìm nén.',
@@ -43,6 +52,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-3',
         name: 'The Empress',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/03-empress.jpg',
         uprightMeaning: 'Nữ tính, vẻ đẹp, sự nuôi dưỡng, sự sinh sôi, sự sáng tạo, sự thoải mái, tình mẹ, sự phong phú.',
         reversedMeaning: 'Sự phụ thuộc, ngột ngạt, thiếu chăm sóc bản thân, sự trì trệ sáng tạo, vấn đề về làm mẹ, sự ghen tị.',
@@ -52,6 +62,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-4',
         name: 'The Emperor',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/04-emperor.jpg',
         uprightMeaning: 'Uy quyền, cấu trúc, sự kiểm soát, sự ổn định, vai trò người cha, lý trí, lãnh đạo, kỷ luật.',
         reversedMeaning: 'Sự độc đoán, cứng nhắc, thiếu kiểm soát, lạm dụng quyền lực, vô trách nhiệm, sự hỗn loạn.',
@@ -61,6 +72,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-5',
         name: 'The Hierophant',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/05-hierophant.jpg',
         uprightMeaning: 'Truyền thống, đức tin, giáo dục, sự tuân thủ, các tổ chức, sự hướng dẫn tinh thần, nghi lễ.',
         reversedMeaning: 'Sự nổi loạn, thách thức truyền thống, tư duy độc lập, sự gò bó, thông tin sai lệch, giáo điều.',
@@ -70,6 +82,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-6',
         name: 'The Lovers',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/06-lovers.jpg',
         uprightMeaning: 'Tình yêu, sự hòa hợp, mối quan hệ, sự lựa chọn, sự liên kết, giá trị cá nhân, sự cam kết.',
         reversedMeaning: 'Sự bất hòa, mất cân bằng, lựa chọn sai lầm, xung đột giá trị, thiếu cam kết, sự chia rẽ.',
@@ -79,6 +92,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-7',
         name: 'The Chariot',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/07-chariot.jpg',
         uprightMeaning: 'Sự kiểm soát, ý chí, chiến thắng, sự quyết tâm, hành động, sự tự tin, sự chinh phục.',
         reversedMeaning: 'Thiếu kiểm soát, mất phương hướng, sự hung hăng, trở ngại, thiếu tự tin, thất bại.',
@@ -88,6 +102,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-8',
         name: 'Strength',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/08-strength.jpg',
         uprightMeaning: 'Sức mạnh nội tâm, lòng dũng cảm, sự kiên nhẫn, sự kiểm soát cảm xúc, lòng trắc ẩn, sự tự tin.',
         reversedMeaning: 'Sự yếu đuối, thiếu tự tin, sợ hãi, sự mất kiểm soát, sự nghi ngờ bản thân, sự hung hăng.',
@@ -97,6 +112,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-9',
         name: 'The Hermit',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/09-hermit.jpg',
         uprightMeaning: 'Sự nội tâm, sự tìm kiếm linh hồn, sự cô độc, sự hướng dẫn từ bên trong, sự khôn ngoan, sự suy ngẫm.',
         reversedMeaning: 'Sự cô lập, sự cô đơn, sự thu mình, sự từ chối giúp đỡ, sự sợ hãi xã hội, sự mất phương hướng.',
@@ -106,6 +122,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-10',
         name: 'Wheel of Fortune',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/10-wheel-of-fortune.jpg',
         uprightMeaning: 'Sự thay đổi, chu kỳ, định mệnh, may mắn, bước ngoặt, sự tiến triển, cơ hội.',
         reversedMeaning: 'Vận rủi, sự trì trệ, sự chống lại thay đổi, sự thiếu may mắn, sự mất kiểm soát, chu kỳ tiêu cực.',
@@ -115,6 +132,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-11',
         name: 'Justice',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/11-justice.jpg',
         uprightMeaning: 'Công lý, sự công bằng, sự thật, luật nhân quả, sự rõ ràng, trách nhiệm, sự cân bằng.',
         reversedMeaning: 'Sự bất công, sự thiên vị, sự thiếu trách nhiệm, sự lừa dối, sự mất cân bằng, hậu quả pháp lý.',
@@ -124,6 +142,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-12',
         name: 'The Hanged Man',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/12-hanged-man.jpg',
         uprightMeaning: 'Sự hy sinh, sự tạm dừng, sự thay đổi góc nhìn, sự buông bỏ, sự giác ngộ, sự chờ đợi.',
         reversedMeaning: 'Sự trì hoãn không cần thiết, sự cứng đầu, sự hy sinh vô ích, sự bế tắc, sự từ chối thay đổi, sự thiếu kiên nhẫn.',
@@ -133,6 +152,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-13',
         name: 'Death',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/13-death.jpg',
         uprightMeaning: 'Sự kết thúc, sự thay đổi, sự chuyển hóa, sự tái sinh, sự buông bỏ quá khứ, sự giải thoát.',
         reversedMeaning: 'Sự kháng cự thay đổi, sự trì hoãn, sự sợ hãi sự mới mẻ, sự bám víu vào quá khứ, sự trì trệ.',
@@ -142,6 +162,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-14',
         name: 'Temperance',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/14-temperance.jpg',
         uprightMeaning: 'Sự cân bằng, sự điều độ, sự kiên nhẫn, sự hòa hợp, sự hợp tác, sự kết hợp, sự chữa lành.',
         reversedMeaning: 'Sự mất cân bằng, sự thái quá, sự thiếu kiên nhẫn, sự xung đột, sự chia rẽ, sự thiếu hòa hợp.',
@@ -151,6 +172,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-15',
         name: 'The Devil',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/15-devil.jpg',
         uprightMeaning: 'Sự ràng buộc, sự nghiện ngập, sự cám dỗ, sự tiêu cực, sự ám ảnh, sự hạn chế bản thân, vật chất.',
         reversedMeaning: 'Sự giải thoát, sự phá vỡ xiềng xích, sự nhận thức, sự vượt qua cám dỗ, sự tự do, sự đối mặt.',
@@ -160,6 +182,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-16',
         name: 'The Tower',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/16-tower.jpg',
         uprightMeaning: 'Sự thay đổi đột ngột, sự sụp đổ, sự khủng hoảng, sự tiết lộ bất ngờ, sự phá hủy cần thiết, sự thức tỉnh.',
         reversedMeaning: 'Sự tránh né thảm họa, sự sợ hãi thay đổi, sự trì hoãn khủng hoảng, sự từ chối sự thật, sự sụp đổ bên trong.',
@@ -169,6 +192,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-17',
         name: 'The Star',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/17-star.jpg',
         uprightMeaning: 'Hy vọng, niềm tin, sự cảm hứng, sự chữa lành, sự bình yên, sự đổi mới, sự hướng dẫn tinh thần.',
         reversedMeaning: 'Sự tuyệt vọng, sự thiếu niềm tin, sự mất phương hướng, sự bi quan, sự trì trệ, sự thiếu cảm hứng.',
@@ -178,6 +202,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-18',
         name: 'The Moon',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/18-moon.jpg',
         uprightMeaning: 'Trực giác, ảo ảnh, sự sợ hãi, sự lo lắng, tiềm thức, sự mơ hồ, sự lừa dối, bí mật.',
         reversedMeaning: 'Sự giải tỏa sợ hãi, sự rõ ràng, sự đối mặt với sự thật, sự nhầm lẫn được giải quyết, sự trực giác bị chặn.',
@@ -187,6 +212,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-19',
         name: 'The Sun',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/19-sun.jpg',
         uprightMeaning: 'Niềm vui, sự thành công, sự lạc quan, sự ấm áp, sự rõ ràng, sự tự tin, sự tỏa sáng, sức sống.',
         reversedMeaning: 'Sự u ám tạm thời, sự thiếu tự tin, sự bi quan, sự trì hoãn thành công, sự kiêu ngạo, sự mệt mỏi.',
@@ -196,6 +222,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-20',
         name: 'Judgement',
+        arcana: 'Major Arcana', // <<<< ĐÃ THÊM
         image: '/src/assets/images/cards/major-arcana/20-judgement.jpg',
         uprightMeaning: 'Sự phán xét, sự tái sinh, sự thức tỉnh, sự tha thứ, sự kêu gọi, sự nhìn lại, sự quyết định quan trọng.',
         reversedMeaning: 'Sự tự phê bình, sự hối tiếc, sự trốn tránh trách nhiệm, sự thiếu quyết đoán, sự sợ hãi phán xét, sự bỏ lỡ cơ hội.',
@@ -205,6 +232,7 @@ const majorArcana: TarotCard[] = [
     {
         id: 'major-21',
         name: 'The World',
+        arcana: 'Major Arcana',
         image: '/src/assets/images/cards/major-arcana/21-world.jpg',
         uprightMeaning: 'Sự hoàn thành, sự trọn vẹn, sự thành công, sự hội nhập, sự kết thúc một chu kỳ, sự du hành, sự thỏa mãn.',
         reversedMeaning: 'Sự thiếu hoàn thành, sự trì hoãn, sự không trọn vẹn, sự bế tắc, sự hạn chế, sự cần kết thúc.',
@@ -217,6 +245,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-ace',
         name: 'Ace of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 'Ace',
         image: '/src/assets/images/cards/minor-arcana/cups/ace-of-cups.jpg',
         uprightMeaning: 'Tình yêu mới, sự khởi đầu về mặt cảm xúc, lòng trắc ẩn, sự sáng tạo, niềm vui, sự mở lòng.',
         reversedMeaning: 'Cảm xúc bị kìm nén, tình yêu bị từ chối, sự trống rỗng, sự sáng tạo bị chặn đứng, nỗi buồn.',
@@ -226,6 +257,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-2',
         name: 'Two of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 2,
         image: '/src/assets/images/cards/minor-arcana/cups/two-of-cups.jpg',
         uprightMeaning: 'Sự hợp nhất, quan hệ đối tác, tình yêu, sự hấp dẫn lẫn nhau, hòa hợp, sự cam kết ban đầu.',
         reversedMeaning: 'Mất cân bằng trong mối quan hệ, bất hòa, chia ly, thiếu tôn trọng, sự hiểu lầm.',
@@ -235,6 +269,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-3',
         name: 'Three of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 3,
         image: '/src/assets/images/cards/minor-arcana/cups/three-of-cups.jpg',
         uprightMeaning: 'Sự kỷ niệm, tình bạn, sự sum họp, niềm vui chung, sự hợp tác, sự sáng tạo nhóm.',
         reversedMeaning: 'Sự cô lập, tiệc tùng quá đà, sự lừa dối trong tình bạn, sự kết thúc của một mối quan hệ xã hội.',
@@ -244,6 +281,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-4',
         name: 'Four of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 4,
         image: '/src/assets/images/cards/minor-arcana/cups/four-of-cups.jpg',
         uprightMeaning: 'Sự thờ ơ, sự suy tư, sự bất mãn, sự chiêm nghiệm, sự bỏ lỡ cơ hội, sự hướng nội.',
         reversedMeaning: 'Sự rút lui, sự trầm ngâm, sự nhận thức muộn màng, sự mở lòng với cơ hội mới, sự vượt qua thờ ơ.',
@@ -253,6 +293,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-5',
         name: 'Five of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 5,
         image: '/src/assets/images/cards/minor-arcana/cups/five-of-cups.jpg',
         uprightMeaning: 'Sự mất mát, nỗi buồn, sự hối tiếc, sự thất vọng, sự tập trung vào điều tiêu cực, sự đau khổ.',
         reversedMeaning: 'Sự chấp nhận, sự tha thứ, sự chữa lành, sự tìm thấy hy vọng, sự buông bỏ quá khứ, sự nhìn về phía trước.',
@@ -262,6 +305,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-6',
         name: 'Six of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 6,
         image: '/src/assets/images/cards/minor-arcana/cups/six-of-cups.jpg',
         uprightMeaning: 'Sự ngây thơ, ký ức tuổi thơ, sự hoài niệm, sự tử tế, sự hào phóng, sự gặp gỡ bạn cũ.',
         reversedMeaning: 'Sự bám víu vào quá khứ, sự thiếu thực tế, sự không muốn trưởng thành, sự lặp lại sai lầm cũ.',
@@ -271,6 +317,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-7',
         name: 'Seven of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 7,
         image: '/src/assets/images/cards/minor-arcana/cups/seven-of-cups.jpg',
         uprightMeaning: 'Sự lựa chọn, ảo tưởng, mơ mộng, sự cám dỗ, sự thiếu quyết đoán, nhiều khả năng.',
         reversedMeaning: 'Sự rõ ràng, sự quyết đoán, sự tập trung, sự lựa chọn đúng đắn, sự thoát khỏi ảo tưởng.',
@@ -280,6 +329,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-8',
         name: 'Eight of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 8,
         image: '/src/assets/images/cards/minor-arcana/cups/eight-of-cups.jpg',
         uprightMeaning: 'Sự từ bỏ, sự tìm kiếm ý nghĩa sâu sắc hơn, sự rời đi, sự thất vọng, sự hành trình tâm linh.',
         reversedMeaning: 'Sự sợ hãi thay đổi, sự bế tắc, sự trở lại với những điều quen thuộc, sự trì hoãn, sự không dám từ bỏ.',
@@ -289,6 +341,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-9',
         name: 'Nine of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 9,
         image: '/src/assets/images/cards/minor-arcana/cups/nine-of-cups.jpg',
         uprightMeaning: 'Sự mãn nguyện, sự hài lòng, điều ước thành hiện thực, sự sung túc về mặt cảm xúc, sự tự hào.',
         reversedMeaning: 'Sự tự mãn, sự tham lam, sự không hài lòng, sự khoe khoang, sự mong muốn không thực tế.',
@@ -298,6 +353,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-10',
         name: 'Ten of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 10,
         image: '/src/assets/images/cards/minor-arcana/cups/ten-of-cups.jpg',
         uprightMeaning: 'Hạnh phúc gia đình, sự hòa hợp, sự viên mãn, sự kết nối cảm xúc sâu sắc, sự bình yên, sự ổn định.',
         reversedMeaning: 'Sự bất hòa trong gia đình, sự đổ vỡ mối quan hệ, sự thiếu kết nối, sự không hạnh phúc, sự cô đơn.',
@@ -307,6 +365,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-page',
         name: 'Page of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 'Page',
         image: '/src/assets/images/cards/minor-arcana/cups/page-of-cups.jpg',
         uprightMeaning: 'Tin tức về mặt cảm xúc, sự sáng tạo, trực giác, sự ngây thơ, sự tò mò, một người nhạy cảm.',
         reversedMeaning: 'Sự non nớt về mặt cảm xúc, sự dễ bị tổn thương, sự thiếu sáng tạo, sự bốc đồng, sự tin người quá mức.',
@@ -316,6 +377,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-knight',
         name: 'Knight of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 'Knight',
         image: '/src/assets/images/cards/minor-arcana/cups/knight-of-cups.jpg',
         uprightMeaning: 'Sự lãng mạn, sự quyến rũ, lời mời, sự theo đuổi, sự sáng tạo, một người mơ mộng, một người tình.',
         reversedMeaning: 'Sự không chân thành, sự lừa dối tình cảm, sự thất thường, sự thiếu thực tế, sự thất vọng trong tình yêu.',
@@ -325,6 +389,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-queen',
         name: 'Queen of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 'Queen',
         image: '/src/assets/images/cards/minor-arcana/cups/queen-of-cups.jpg',
         uprightMeaning: 'Sự đồng cảm, sự trực giác, sự nuôi dưỡng, lòng trắc ẩn, sự dịu dàng, một người phụ nữ nhạy cảm và yêu thương.',
         reversedMeaning: 'Sự quá nhạy cảm, sự bất ổn cảm xúc, sự phụ thuộc, sự thao túng tình cảm, sự ủy mị.',
@@ -334,6 +401,9 @@ const cups: TarotCard[] = [
     {
         id: 'cups-king',
         name: 'King of Cups',
+        arcana: 'Minor Arcana',
+        suit: 'Cups',
+        number: 'King',
         image: '/src/assets/images/cards/minor-arcana/cups/king-of-cups.jpg',
         uprightMeaning: 'Sự kiểm soát cảm xúc, lòng trắc ẩn, sự khôn ngoan, sự cân bằng, sự ngoại giao, một người đàn ông trưởng thành và từ bi.',
         reversedMeaning: 'Sự bất ổn cảm xúc, sự thao túng, sự lạnh lùng, sự tránh né cảm xúc, sự độc đoán tình cảm.',
@@ -346,6 +416,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-ace',
         name: 'Ace of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 'Ace',
         image: '/src/assets/images/cards/minor-arcana/pentacles/ace-of-pentacles.jpg',
         uprightMeaning: 'Cơ hội mới về vật chất, sự thịnh vượng, sự ổn định, sự đầu tư, sự biểu hiện thực tế, sự khởi đầu vững chắc.',
         reversedMeaning: 'Bỏ lỡ cơ hội tài chính, quyết định tài chính tồi tệ, thiếu tầm nhìn xa, sự bất ổn, sự tham lam.',
@@ -355,6 +428,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-2',
         name: 'Two of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 2,
         image: '/src/assets/images/cards/minor-arcana/pentacles/two-of-pentacles.jpg',
         uprightMeaning: 'Sự cân bằng, sự thích nghi, sự ưu tiên, sự quản lý thời gian và nguồn lực, sự linh hoạt.',
         reversedMeaning: 'Sự mất cân bằng, sự quá tải, sự thiếu tổ chức, quyết định kém, sự căng thẳng tài chính.',
@@ -364,6 +440,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-3',
         name: 'Three of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 3,
         image: '/src/assets/images/cards/minor-arcana/pentacles/three-of-pentacles.jpg',
         uprightMeaning: 'Sự hợp tác, làm việc nhóm, kỹ năng, sự thành thạo, sự công nhận ban đầu, sự học hỏi.',
         reversedMeaning: 'Thiếu hợp tác, làm việc kém chất lượng, sự thiếu kỹ năng, sự không được công nhận, sự cạnh tranh không lành mạnh.',
@@ -373,6 +452,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-4',
         name: 'Four of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 4,
         image: '/src/assets/images/cards/minor-arcana/pentacles/four-of-pentacles.jpg',
         uprightMeaning: 'Sự kiểm soát tài chính, sự an toàn, sự ổn định, sự bảo thủ, sự sở hữu, sự tiết kiệm.',
         reversedMeaning: 'Sự tham lam, sự keo kiệt, sự sợ hãi mất mát, sự cứng nhắc, sự cô lập bản thân, sự không muốn chia sẻ.',
@@ -382,6 +464,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-5',
         name: 'Five of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 5,
         image: '/src/assets/images/cards/minor-arcana/pentacles/five-of-pentacles.jpg',
         uprightMeaning: 'Sự khó khăn tài chính, sự nghèo đói, sự cô lập, sự lo lắng, sự thiếu thốn, sự bị bỏ rơi, vấn đề sức khỏe.',
         reversedMeaning: 'Sự kết thúc khó khăn, sự phục hồi, sự tìm thấy sự giúp đỡ, sự hy vọng, sự vượt qua nghịch cảnh.',
@@ -391,6 +476,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-6',
         name: 'Six of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 6,
         image: '/src/assets/images/cards/minor-arcana/pentacles/six-of-pentacles.jpg',
         uprightMeaning: 'Sự hào phóng, sự cho đi và nhận lại, sự từ thiện, sự giúp đỡ, sự cân bằng tài chính, sự công bằng.',
         reversedMeaning: 'Sự nợ nần, sự lợi dụng, sự cho đi với mục đích xấu, sự mất cân bằng trong cho và nhận, sự keo kiệt.',
@@ -400,6 +488,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-7',
         name: 'Seven of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 7,
         image: '/src/assets/images/cards/minor-arcana/pentacles/seven-of-pentacles.jpg',
         uprightMeaning: 'Sự kiên nhẫn, sự đánh giá, sự đầu tư dài hạn, sự thu hoạch, sự chờ đợi kết quả, sự suy ngẫm về công việc.',
         reversedMeaning: 'Sự thiếu kiên nhẫn, sự thất vọng với kết quả, sự đầu tư tồi, sự lãng phí công sức, sự trì hoãn.',
@@ -409,6 +500,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-8',
         name: 'Eight of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 8,
         image: '/src/assets/images/cards/minor-arcana/pentacles/eight-of-pentacles.jpg',
         uprightMeaning: 'Sự chăm chỉ, sự cống hiến, sự thành thạo kỹ năng, sự học hỏi, sự tập trung vào chi tiết, sự tự cải thiện.',
         reversedMeaning: 'Sự lười biếng, sự thiếu tập trung, sự cầu toàn quá mức, sự nhàm chán, sự lặp lại không tiến bộ.',
@@ -418,6 +512,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-9',
         name: 'Nine of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 9,
         image: '/src/assets/images/cards/minor-arcana/pentacles/nine-of-pentacles.jpg',
         uprightMeaning: 'Sự độc lập tài chính, sự tự chủ, sự thành công, sự thoải mái, sự tận hưởng thành quả, sự tự tin.',
         reversedMeaning: 'Sự phụ thuộc tài chính, sự cô đơn dù giàu có, sự khoe khoang, sự làm việc quá sức, sự bất an.',
@@ -427,6 +524,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-10',
         name: 'Ten of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 10,
         image: '/src/assets/images/cards/minor-arcana/pentacles/ten-of-pentacles.jpg',
         uprightMeaning: 'Sự giàu có bền vững, sự kế thừa, sự an toàn gia đình, sự thịnh vượng, sự ổn định lâu dài, sự truyền thống.',
         reversedMeaning: 'Sự mất mát tài chính, sự tranh chấp gia tài, sự bất ổn, sự phá vỡ truyền thống, sự lo lắng về tương lai.',
@@ -436,6 +536,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-page',
         name: 'Page of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 'Page',
         image: '/src/assets/images/cards/minor-arcana/pentacles/page-of-pentacles.jpg',
         uprightMeaning: 'Cơ hội mới, sự học hỏi thực tế, sự chăm chỉ, sự khởi đầu một dự án, sự tập trung, một người trẻ tuổi ham học.',
         reversedMeaning: 'Sự thiếu tập trung, sự lười biếng, sự trì hoãn, cơ hội bị bỏ lỡ, sự thiếu thực tế, sự thiếu kiên nhẫn.',
@@ -445,6 +548,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-knight',
         name: 'Knight of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 'Knight',
         image: '/src/assets/images/cards/minor-arcana/pentacles/knight-of-pentacles.jpg',
         uprightMeaning: 'Sự đáng tin cậy, sự kiên trì, sự chăm chỉ, sự thực tế, sự bảo vệ, sự chậm mà chắc, sự cống hiến cho công việc.',
         reversedMeaning: 'Sự nhàm chán, sự cứng nhắc, sự lười biếng, sự thiếu trách nhiệm, sự bế tắc, sự quá thận trọng.',
@@ -454,6 +560,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-queen',
         name: 'Queen of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 'Queen',
         image: '/src/assets/images/cards/minor-arcana/pentacles/queen-of-pentacles.jpg',
         uprightMeaning: 'Sự nuôi dưỡng, sự thực tế, sự ổn định tài chính, sự hào phóng, sự chăm sóc, một người phụ nữ đảm đang và thực tế.',
         reversedMeaning: 'Sự quá tập trung vào vật chất, sự ngột ngạt, sự bất an tài chính, sự lơ là bản thân hoặc gia đình, sự keo kiệt.',
@@ -463,6 +572,9 @@ const pentacles: TarotCard[] = [
     {
         id: 'pentacles-king',
         name: 'King of Pentacles',
+        arcana: 'Minor Arcana',
+        suit: 'Pentacles',
+        number: 'King',
         image: '/src/assets/images/cards/minor-arcana/pentacles/king-of-pentacles.jpg',
         uprightMeaning: 'Sự thành công về vật chất, sự thịnh vượng, sự lãnh đạo thực tế, sự ổn định, sự hào phóng, một người đàn ông thành đạt và đáng tin cậy.',
         reversedMeaning: 'Sự tham lam, sự cứng nhắc, sự bảo thủ, sự lạm dụng quyền lực, sự không đáng tin cậy, sự thất bại tài chính.',
@@ -475,6 +587,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-ace',
         name: 'Ace of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 'Ace',
         image: '/src/assets/images/cards/minor-arcana/swords/ace-of-swords.jpg',
         uprightMeaning: 'Sự thật, rõ ràng, đột phá tinh thần, chiến thắng, quyết tâm, sự minh mẫn, công lý, sức mạnh trí tuệ.',
         reversedMeaning: 'Nhầm lẫn, thiếu rõ ràng, quyết định sai lầm, hỗn loạn, sự tàn nhẫn, lạm dụng sức mạnh, thông tin sai lệch.',
@@ -484,6 +599,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-2',
         name: 'Two of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 2,
         image: '/src/assets/images/cards/minor-arcana/swords/two-of-swords.jpg',
         uprightMeaning: 'Sự bế tắc, sự lựa chọn khó khăn, sự cân bằng mong manh, sự tránh né, sự đình chiến tạm thời, sự quyết định bị trì hoãn.',
         reversedMeaning: 'Sự thiếu quyết đoán, sự nhầm lẫn, sự đối đầu, sự thật bị phơi bày, sự mất cân bằng, sự lựa chọn sai lầm.',
@@ -493,6 +611,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-3',
         name: 'Three of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 3,
         image: '/src/assets/images/cards/minor-arcana/swords/three-of-swords.jpg',
         uprightMeaning: 'Nỗi đau lòng, sự mất mát, sự phản bội, sự đau khổ, sự thật phũ phàng, sự chia ly.',
         reversedMeaning: 'Sự chữa lành, sự tha thứ, sự vượt qua nỗi đau, sự giải thoát, sự lạc quan trở lại, sự chấp nhận.',
@@ -502,6 +623,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-4',
         name: 'Four of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 4,
         image: '/src/assets/images/cards/minor-arcana/swords/four-of-swords.jpg',
         uprightMeaning: 'Sự nghỉ ngơi, sự phục hồi, sự suy ngẫm, sự tĩnh tâm, sự chuẩn bị, sự tạm dừng cần thiết.',
         reversedMeaning: 'Sự kiệt sức, sự trì trệ, sự lo lắng, sự trốn tránh, sự cô lập, sự cần nghỉ ngơi nhưng không chịu.',
@@ -511,6 +635,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-5',
         name: 'Five of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 5,
         image: '/src/assets/images/cards/minor-arcana/swords/five-of-swords.jpg',
         uprightMeaning: 'Xung đột, thất bại, sự sỉ nhục, sự cạnh tranh không lành mạnh, sự chiến thắng phải trả giá, sự hối tiếc.',
         reversedMeaning: 'Sự hòa giải, sự kết thúc xung đột, sự tha thứ, sự buông bỏ, sự nhận ra sai lầm, sự tìm kiếm hòa bình.',
@@ -520,6 +647,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-6',
         name: 'Six of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 6,
         image: '/src/assets/images/cards/minor-arcana/swords/six-of-swords.jpg',
         uprightMeaning: 'Sự chuyển tiếp, sự rời bỏ quá khứ, sự tìm kiếm bình yên, sự chữa lành, sự di chuyển, sự vượt qua khó khăn.',
         reversedMeaning: 'Sự trì hoãn, sự không thể buông bỏ, sự trở lại vấn đề cũ, sự bế tắc, sự hỗn loạn tinh thần, sự hành trình khó khăn.',
@@ -529,6 +659,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-7',
         name: 'Seven of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 7,
         image: '/src/assets/images/cards/minor-arcana/swords/seven-of-swords.jpg',
         uprightMeaning: 'Sự lừa dối, sự phản bội, sự lén lút, sự trốn tránh trách nhiệm, sự chiến lược, sự hành động một mình.',
         reversedMeaning: 'Sự thú nhận, sự đối mặt với sự thật, sự từ bỏ kế hoạch xấu, sự bị bắt quả tang, sự tìm kiếm lời khuyên.',
@@ -538,6 +671,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-8',
         name: 'Eight of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 8,
         image: '/src/assets/images/cards/minor-arcana/swords/eight-of-swords.jpg',
         uprightMeaning: 'Sự tự hạn chế, sự bế tắc, sự sợ hãi, sự bất lực, sự cô lập, sự suy nghĩ tiêu cực, sự thiếu tự tin.',
         reversedMeaning: 'Sự giải thoát, sự tự do, sự vượt qua nỗi sợ, sự tìm thấy lối thoát, sự tự tin trở lại, sự nhận ra sức mạnh bản thân.',
@@ -547,6 +683,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-9',
         name: 'Nine of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 9,
         image: '/src/assets/images/cards/minor-arcana/swords/nine-of-swords.jpg',
         uprightMeaning: 'Sự lo lắng, sự sợ hãi, sự tuyệt vọng, sự căng thẳng, ác mộng, sự tội lỗi, sự đau khổ tinh thần.',
         reversedMeaning: 'Sự giải tỏa lo lắng, sự đối mặt với nỗi sợ, sự tìm kiếm sự giúp đỡ, sự hy vọng, sự phục hồi, sự kết thúc đau khổ.',
@@ -556,6 +695,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-10',
         name: 'Ten of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 10,
         image: '/src/assets/images/cards/minor-arcana/swords/ten-of-swords.jpg',
         uprightMeaning: 'Sự kết thúc đau đớn, sự phản bội, sự sụp đổ, sự thất bại hoàn toàn, sự chạm đáy, sự cần phải buông bỏ.',
         reversedMeaning: 'Sự phục hồi, sự sống sót, sự vượt qua khủng hoảng, sự không thể tệ hơn được nữa, sự bắt đầu lại từ đầu, sự giải thoát.',
@@ -565,6 +707,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-page',
         name: 'Page of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 'Page',
         image: '/src/assets/images/cards/minor-arcana/swords/page-of-swords.jpg',
         uprightMeaning: 'Sự tò mò, sự ham học hỏi, sự năng động, sự cảnh giác, sự giao tiếp thẳng thắn, một người trẻ thông minh và nhanh trí.',
         reversedMeaning: 'Sự thiếu tập trung, sự buôn chuyện, sự thiếu suy nghĩ, sự bốc đồng, sự phòng thủ quá mức, sự nói mà không làm.',
@@ -574,6 +719,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-knight',
         name: 'Knight of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 'Knight',
         image: '/src/assets/images/cards/minor-arcana/swords/knight-of-swords.jpg',
         uprightMeaning: 'Sự tham vọng, sự hành động nhanh chóng, sự quyết đoán, sự dũng cảm, sự tập trung vào mục tiêu, sự thiếu kiên nhẫn.',
         reversedMeaning: 'Sự liều lĩnh, sự hung hăng, sự thiếu suy nghĩ, sự tàn nhẫn, sự mất phương hướng, sự hành động vội vàng.',
@@ -583,6 +731,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-queen',
         name: 'Queen of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 'Queen',
         image: '/src/assets/images/cards/minor-arcana/swords/queen-of-swords.jpg',
         uprightMeaning: 'Sự độc lập, sự thông minh, sự rõ ràng, sự công bằng, sự khách quan, sự sắc sảo, một người phụ nữ mạnh mẽ và thẳng thắn.',
         reversedMeaning: 'Sự cay nghiệt, sự cô độc, sự phán xét, sự lạnh lùng, sự thiếu đồng cảm, sự bảo thủ, sự hẹp hòi.',
@@ -592,6 +743,9 @@ const swords: TarotCard[] = [
     {
         id: 'swords-king',
         name: 'King of Swords',
+        arcana: 'Minor Arcana',
+        suit: 'Swords',
+        number: 'King',
         image: '/src/assets/images/cards/minor-arcana/swords/king-of-swords.jpg',
         uprightMeaning: 'Sự quyền lực trí tuệ, sự lãnh đạo, sự công bằng, sự rõ ràng, sự logic, sự kỷ luật, một người đàn ông uy quyền và khôn ngoan.',
         reversedMeaning: 'Sự lạm dụng quyền lực, sự độc đoán, sự tàn nhẫn, sự thiên vị, sự thiếu linh hoạt, sự phán xét khắc nghiệt.',
@@ -604,6 +758,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-ace',
         name: 'Ace of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 'Ace',
         image: '/src/assets/images/cards/minor-arcana/wands/ace-of-wands.jpg',
         uprightMeaning: 'Nguồn cảm hứng mới, năng lượng, sự sáng tạo, tiềm năng, lòng dũng cảm, sự khởi đầu một dự án, sự nhiệt huyết.',
         reversedMeaning: 'Thiếu động lực, trì hoãn, cơ hội bị bỏ lỡ, sự nhàm chán, sự cạn kiệt năng lượng, sự thiếu tầm nhìn.',
@@ -613,6 +770,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-2',
         name: 'Two of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 2,
         image: '/src/assets/images/cards/minor-arcana/wands/two-of-wands.jpg',
         uprightMeaning: 'Sự lập kế hoạch, sự quyết định, sự khám phá, sự tự tin, sự chuẩn bị cho tương lai, sự mở rộng tầm nhìn.',
         reversedMeaning: 'Sợ hãi sự thay đổi, sự thiếu kế hoạch, sự trì hoãn, sự lựa chọn hạn hẹp, sự ở lại vùng an toàn.',
@@ -622,6 +782,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-3',
         name: 'Three of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 3,
         image: '/src/assets/images/cards/minor-arcana/wands/three-of-wands.jpg',
         uprightMeaning: 'Sự mở rộng, sự nhìn xa trông rộng, sự chuẩn bị, sự tiến bộ, sự chờ đợi thành quả, sự hợp tác quốc tế.',
         reversedMeaning: 'Sự chậm trễ, sự thất vọng, sự thiếu tầm nhìn xa, sự cản trở, sự không lường trước được.',
@@ -631,6 +794,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-4',
         name: 'Four of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 4,
         image: '/src/assets/images/cards/minor-arcana/wands/four-of-wands.jpg',
         uprightMeaning: 'Sự kỷ niệm, sự hòa hợp, sự ổn định, sự trở về nhà, sự thành công ban đầu, sự vui vẻ, sự kiện quan trọng.',
         reversedMeaning: 'Sự bất ổn, sự thiếu hòa hợp, sự trì hoãn lễ kỷ niệm, sự không ổn định trong gia đình, sự thiếu gắn kết.',
@@ -640,6 +806,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-5',
         name: 'Five of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 5,
         image: '/src/assets/images/cards/minor-arcana/wands/five-of-wands.jpg',
         uprightMeaning: 'Sự cạnh tranh, sự xung đột, sự bất đồng, sự hỗn loạn, sự thách thức, sự đấu tranh cho ý kiến.',
         reversedMeaning: 'Sự tránh né xung đột, sự hòa giải, sự tìm kiếm giải pháp, sự căng thẳng nội tâm, sự mệt mỏi vì tranh đấu.',
@@ -649,6 +818,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-6',
         name: 'Six of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 6,
         image: '/src/assets/images/cards/minor-arcana/wands/six-of-wands.jpg',
         uprightMeaning: 'Sự chiến thắng, sự công nhận, sự thành công, sự tự hào, sự ủng hộ từ công chúng, sự tiến bộ.',
         reversedMeaning: 'Sự thất bại, sự thiếu công nhận, sự kiêu ngạo, sự trì hoãn thành công, sự tự ti, sự thất vọng.',
@@ -658,6 +830,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-7',
         name: 'Seven of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 7,
         image: '/src/assets/images/cards/minor-arcana/wands/seven-of-wands.jpg',
         uprightMeaning: 'Sự phòng thủ, sự bảo vệ vị trí, sự dũng cảm, sự kiên trì, sự đối mặt với thách thức, sự đứng lên cho bản thân.',
         reversedMeaning: 'Sự quá tải, sự nhượng bộ, sự mất vị thế, sự thiếu tự tin, sự kiệt sức, sự từ bỏ.',
@@ -667,6 +842,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-8',
         name: 'Eight of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 8,
         image: '/src/assets/images/cards/minor-arcana/wands/eight-of-wands.jpg',
         uprightMeaning: 'Sự hành động nhanh chóng, tin tức, sự tiến triển, sự di chuyển, sự kết thúc trì hoãn, sự năng động.',
         reversedMeaning: 'Sự trì hoãn, sự chậm trễ, sự cản trở, sự thất vọng, sự thiếu quyết đoán, sự mất phương hướng.',
@@ -676,6 +854,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-9',
         name: 'Nine of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 9,
         image: '/src/assets/images/cards/minor-arcana/wands/nine-of-wands.jpg',
         uprightMeaning: 'Sự kiên cường, sự phòng thủ cuối cùng, sự bền bỉ, sự cảnh giác, sự không bỏ cuộc, sự bảo vệ thành quả.',
         reversedMeaning: 'Sự mệt mỏi, sự đầu hàng, sự thiếu kiên nhẫn, sự hoang tưởng, sự từ bỏ quá sớm, sự không học từ sai lầm.',
@@ -685,6 +866,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-10',
         name: 'Ten of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 10,
         image: '/src/assets/images/cards/minor-arcana/wands/ten-of-wands.jpg',
         uprightMeaning: 'Gánh nặng, trách nhiệm, sự quá tải, sự căng thẳng, sự làm việc quá sức, sự hoàn thành một chu kỳ khó khăn.',
         reversedMeaning: 'Sự giải tỏa gánh nặng, sự chia sẻ trách nhiệm, sự từ bỏ những điều không cần thiết, sự nhận ra giới hạn.',
@@ -694,6 +878,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-page',
         name: 'Page of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 'Page',
         image: '/src/assets/images/cards/minor-arcana/wands/page-of-wands.jpg',
         uprightMeaning: 'Sự khám phá, sự nhiệt tình, sự sáng tạo, tin tức tốt lành, sự khởi đầu mới, một người trẻ đầy năng lượng và ý tưởng.',
         reversedMeaning: 'Sự thiếu định hướng, sự bốc đồng, sự trì hoãn, tin tức không tốt, sự thiếu tự tin, sự không thực tế.',
@@ -703,6 +890,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-knight',
         name: 'Knight of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 'Knight',
         image: '/src/assets/images/cards/minor-arcana/wands/knight-of-wands.jpg',
         uprightMeaning: 'Sự năng động, sự phiêu lưu, sự đam mê, sự tự tin, sự hành động, sự thay đổi nhanh chóng, sự quyến rũ.',
         reversedMeaning: 'Sự liều lĩnh, sự thiếu kiên nhẫn, sự bốc đồng, sự trì hoãn, sự kiêu ngạo, sự không đáng tin cậy.',
@@ -712,6 +902,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-queen',
         name: 'Queen of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 'Queen',
         image: '/src/assets/images/cards/minor-arcana/wands/queen-of-wands.jpg',
         uprightMeaning: 'Sự tự tin, sự độc lập, sự nhiệt tình, sự sáng tạo, sự quyến rũ, sự ấm áp, một người phụ nữ mạnh mẽ và lôi cuốn.',
         reversedMeaning: 'Sự ghen tị, sự kiểm soát, sự thiếu tự tin, sự đòi hỏi, sự nóng nảy, sự thiếu kiên nhẫn.',
@@ -721,6 +914,9 @@ const wands: TarotCard[] = [
     {
         id: 'wands-king',
         name: 'King of Wands',
+        arcana: 'Minor Arcana',
+        suit: 'Wands',
+        number: 'King',
         image: '/src/assets/images/cards/minor-arcana/wands/king-of-wands.jpg',
         uprightMeaning: 'Sự lãnh đạo, sự tầm nhìn, sự tự tin, sự sáng tạo, sự truyền cảm hứng, sự quyết đoán, một người đàn ông quyền lực và có ảnh hưởng.',
         reversedMeaning: 'Sự độc đoán, sự nóng nảy, sự thiếu kiên nhẫn, sự kiêu ngạo, sự lạm dụng quyền lực, sự thiếu tầm nhìn.',
@@ -755,6 +951,9 @@ const placeholderCard = (id: number): TarotCard => ({
     reversedMeaning: `Đây là nghĩa ngược của Card ${id + 1}. Nó cảnh báo về sự trì hoãn, bỏ lỡ hoặc năng lượng bị chặn.`,
     keywordsUpright: ['tiềm năng', 'cơ hội', `xuôi ${id + 1}`],
     keywordsReversed: ['trì hoãn', 'thách thức', `ngược ${id + 1}`],
+    arcana: (id < 22 ? 'Major Arcana' : 'Minor Arcana') as Arcana, // <<<< THÊM (ví dụ đơn giản)
+    suit: (id < 22 ? undefined : (['Wands', 'Cups', 'Swords', 'Pentacles'][(id - 22) % 4] as Suit)), // <<<< THÊM (ví dụ đơn giản)
+    number: (id < 22 ? undefined : (Math.floor((id - 22) / 4) + 1 === 1 ? 'Ace' : Math.floor((id - 22) / 4) + 1 <= 10 ? Math.floor((id - 22) / 4) + 1 : ['Page', 'Knight', 'Queen', 'King'][(id - 22 - 4 * 9) % 4])), // <<<< THÊM (ví dụ đơn giản)
 });
 
 export const testingTarotDeck: TarotCard[] = Array.from({ length: 78 }, (_, i) => placeholderCard(i));

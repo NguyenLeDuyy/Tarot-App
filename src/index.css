@@ -91,3 +91,31 @@ button:focus-visible {
 }
 
 /* Các style toàn cục khác của bạn */
+
+/* Custom Scrollbar for Modal */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background   : rgba(51, 65, 85, 0.5);
+  /* slate-700 with opacity */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background   : #8b5cf6;
+  /* purple-500 */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+  /* purple-600 */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 rgba(51, 65, 85, 0.5);
+}

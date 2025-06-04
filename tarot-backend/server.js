@@ -174,13 +174,27 @@ app.post('/api/tarot/interpret', async (req, res) => {
             return res.status(500).json({ message: "Lỗi cấu hình máy chủ: thiếu API key Gemini." });
         }
 
+
+
         console.log('DEBUG: Attempting to create genAIInstance. GenAIConstructor is a:', typeof GenAIConstructor);
         const genAIInstance = new GenAIConstructor({ apiKey: apiKeyToUse });
         console.log('DEBUG: genAIInstance created.');
         console.log('DEBUG: genAIInstance.models exists:', typeof genAIInstance.models === 'object' && genAIInstance.models !== null);
         console.log('DEBUG: genAIInstance.models.generateContent is a function:', typeof genAIInstance.models?.generateContent === 'function');
 
-        const modelName = "gemini-1.5-flash-latest";
+        async function listAvailableModels(genAIInstance) {
+            try {
+                const models = await genAIInstance.models.listModels();
+                console.log("Available models:", models);
+            } catch (error) {
+                console.error("Error listing models:", error);
+            }
+        }
+
+        // Gọi hàm này sau khi khởi tạo genAIInstance
+        listAvailableModels(genAIInstance);
+
+        const modelName = "gemini-2.0-flash";
         console.log(`DEBUG: Using modelName: ${modelName}`);
 
         // Cấu hình an toàn
@@ -191,7 +205,12 @@ app.post('/api/tarot/interpret', async (req, res) => {
             { category: HarmCategoryClass.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThresholdEnum.BLOCK_MEDIUM_AND_ABOVE },
         ];
         // Cấu hình sinh văn bản
-        const generationConfig = { temperature: 0.6, topK: 40, topP: 0.95, maxOutputTokens: 2048 };
+        const generationConfig = {
+            temperature: 0.9, // Độ sáng tạo cao
+            topK: 40,
+            topP: 0.96, // Độ đa dạng cao
+            maxOutputTokens: 2048
+        };
 
         // Sử dụng genAIInstance.models.generateContent()
         const result = await genAIInstance.models.generateContent({

@@ -32,12 +32,13 @@ const CareerPathSpreadPage: React.FC = () => {
 
                     <div>
                         <h2 className="text-2xl font-semibold font-['Cinzel',_serif] text-purple-300 mb-3">Ý Nghĩa Các Vị Trí</h2>
-                        <ul className="space-y-2 text-gray-300 font-['Lato',_sans-serif]">
-                            {spreadInfo.layout.map((position, index) => (
-                                <li key={index}><strong>{position.startsWith((index + 1).toString()) ? position : `${index + 1}. ${position}`}:</strong> [Thêm mô tả chi tiết cho vị trí này nếu muốn]</li>
-                            ))}
+                        <ul className="space-y-3 text-gray-300 font-['Lato',_sans-serif]">
+                            <li><strong>1. Hiện trạng sự nghiệp:</strong> Phản ánh tình hình công việc, vai trò và những gì bạn đang trải qua trong sự nghiệp hiện tại.</li>
+                            <li><strong>2. Thử thách hoặc trở ngại:</strong> Những khó khăn, rào cản hoặc vấn đề bạn cần phải đối mặt và vượt qua.</li>
+                            <li><strong>3. Điểm mạnh và tiềm năng:</strong> Những kỹ năng, tài năng hoặc nguồn lực bạn có thể tận dụng để phát triển.</li>
+                            <li><strong>4. Lời khuyên hoặc hướng đi:</strong> Gợi ý về hành động bạn nên thực hiện hoặc con đường nên cân nhắc để đạt được mục tiêu.</li>
+                            <li><strong>5. Kết quả tiềm năng:</strong> Viễn cảnh hoặc kết quả có thể xảy ra nếu bạn đi theo con đường được gợi ý.</li>
                         </ul>
-                        <p className="text-sm text-gray-400 mt-2 font-['Lato',_sans-serif]">Ví dụ: Lá "Hiện trạng sự nghiệp" phản ánh tình hình công việc hiện tại của bạn...</p>
                     </div>
 
                     {spreadInfo.questions && spreadInfo.questions.length > 0 && (
@@ -65,4 +66,4 @@ const CareerPathSpreadPage: React.FC = () => {
     );
 };
 
-export default CareerPathSpreadPage; 
+export default CareerPathSpreadPage;

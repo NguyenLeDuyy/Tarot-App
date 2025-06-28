@@ -32,12 +32,13 @@ const LoveSpreadPage: React.FC = () => {
 
                     <div>
                         <h2 className="text-2xl font-semibold font-['Cinzel',_serif] text-purple-300 mb-3">Ý Nghĩa Các Vị Trí</h2>
-                        <ul className="space-y-2 text-gray-300 font-['Lato',_sans-serif]">
-                            {spreadInfo.layout.map((position, index) => (
-                                <li key={index}><strong>{position.startsWith((index + 1).toString()) ? position : `${index + 1}. ${position}`}:</strong> [Thêm mô tả chi tiết cho vị trí này nếu muốn]</li>
-                            ))}
+                        <ul className="space-y-3 text-gray-300 font-['Lato',_sans-serif]">
+                            <li><strong>1. Bạn trong mối quan hệ:</strong> Thể hiện vai trò, cảm xúc, và góc nhìn của bạn về mối quan hệ ở thời điểm hiện tại.</li>
+                            <li><strong>2. Đối phương trong mối quan hệ:</strong> Phản ánh vai trò, cảm xúc, và góc nhìn của người ấy.</li>
+                            <li><strong>3. Động lực chính của mối quan hệ:</strong> Nền tảng, sức mạnh cốt lõi hoặc điểm yếu đang gắn kết hai bạn.</li>
+                            <li><strong>4. Thách thức cần vượt qua:</strong> Những khó khăn, mâu thuẫn hoặc trở ngại mà mối quan hệ đang đối mặt.</li>
+                            <li><strong>5. Tiềm năng phát triển của mối quan hệ:</strong> Hướng đi, kết quả hoặc bài học tiềm năng trong tương lai gần.</li>
                         </ul>
-                        <p className="text-sm text-gray-400 mt-2 font-['Lato',_sans-serif]">Ví dụ: Lá "Bạn trong mối quan hệ" thể hiện vai trò, cảm xúc của bạn...</p>
                     </div>
 
                     {spreadInfo.questions && spreadInfo.questions.length > 0 && (
@@ -65,4 +66,4 @@ const LoveSpreadPage: React.FC = () => {
     );
 };
 
-export default LoveSpreadPage; 
+export default LoveSpreadPage;

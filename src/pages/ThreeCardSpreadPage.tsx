@@ -32,12 +32,11 @@ const ThreeCardSpreadPage: React.FC = () => {
 
                     <div>
                         <h2 className="text-2xl font-semibold font-['Cinzel',_serif] text-purple-300 mb-3">Ý Nghĩa Các Vị Trí</h2>
-                        <ul className="list-decimal list-inside space-y-2 text-gray-300 font-['Lato',_sans-serif]">
-                            {spreadInfo.layout.map((position, index) => (
-                                <li key={index}><strong>{position}:</strong> [Thêm mô tả chi tiết cho vị trí này nếu muốn]</li>
-                            ))}
+                        <ul className="space-y-3 text-gray-300 font-['Lato',_sans-serif]">
+                            <li><strong>1. Quá khứ:</strong> Những sự kiện, kinh nghiệm đã qua ảnh hưởng đến tình hình hiện tại.</li>
+                            <li><strong>2. Hiện tại:</strong> Tình hình, thách thức hoặc bài học bạn đang đối mặt ngay bây giờ.</li>
+                            <li><strong>3. Tương lai:</strong> Hướng đi tiềm năng, kết quả có thể xảy ra dựa trên tình hình hiện tại.</li>
                         </ul>
-                        <p className="text-sm text-gray-400 mt-2 font-['Lato',_sans-serif]">Ví dụ: Lá "Quá khứ" nói về những sự kiện, kinh nghiệm đã qua ảnh hưởng đến tình hình hiện tại...</p>
                     </div>
 
                     {spreadInfo.questions && spreadInfo.questions.length > 0 && (
@@ -65,4 +64,4 @@ const ThreeCardSpreadPage: React.FC = () => {
     );
 };
 
-export default ThreeCardSpreadPage; 
+export default ThreeCardSpreadPage;
